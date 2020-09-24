@@ -1,4 +1,4 @@
-# zoya-app
+# Pink Candy
 
 ## Project setup
 ```
