@@ -55,12 +55,12 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true,
+      required: true
     },
     value: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>

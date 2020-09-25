@@ -81,12 +81,12 @@ import Artice from "@/components/Article";
 export default {
   name: "App",
   components: {
-    Artice,
+    Artice
   },
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
-    },
+    }
   },
   data: () => ({
     drawer: false,
@@ -97,7 +97,7 @@ export default {
         "icon-alt": "mdi-chevron-down",
         text: "סידור שולחנות",
         model: false,
-        children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }],
+        children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }]
       },
       {
         icon: "mdi-dots-horizontal-circle-outline",
@@ -109,11 +109,11 @@ export default {
           { text: "Export" },
           { text: "Print" },
           { text: "Undo changes" },
-          { text: "Other contacts" },
-        ],
-      },
-    ],
-  }),
+          { text: "Other contacts" }
+        ]
+      }
+    ]
+  })
 };
 </script>
 
