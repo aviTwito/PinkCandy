@@ -108,12 +108,15 @@
             <ArticePage />
           </v-flex>
         </v-layout> -->
-        <v-row no-gutters>
+        <v-row class="ma-0 pa-0" no-gutters>
           <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="4">
-            <ArticePage v-for="index in 5" :key="index" />
+            <ArticePage v-for="index in 2" :key="index" />
+            <Article />
           </v-col>
           <v-col lg="8" sm="12" xs="12">
-            <ArticePage />
+            <!-- <ArticePage /> -->
+            <!-- <Article v-for="index in 5" :key="index" /> -->
+            <router-view />
           </v-col>
         </v-row>
       </v-container>
@@ -125,10 +128,12 @@
 // import NavDrawer from './components/nav'
 // import helloWorld from '@/components/HelloWorld';
 import ArticePage from "@/components/ArticlePage";
+import Article from "@/components/Article";
 export default {
   name: "App",
   components: {
-    ArticePage
+    ArticePage,
+    Article
   },
   data: () => ({
     drawer: false,
