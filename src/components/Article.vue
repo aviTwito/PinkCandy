@@ -1,11 +1,21 @@
 <template>
   <v-row no-gutters>
-    <v-col class="mb-2" md="6" offset-md="3" sm="8" offset-sm="2">
-      <v-card elevation="5" outlined max-width="1000">
+    <v-col
+      class="mb-2"
+      md="6"
+      offset-md="3"
+      sm="8"
+      offset-sm="2"
+    >
+      <v-card
+        elevation="5"
+        outlined
+        max-width="1000"
+      >
         <v-img
           class="white--text align-end"
           height="200"
-          v-bind:src="article.img"
+          :src="article.img"
         />
         <v-card-title class="headline">
           <!-- <h1 class="display-2 font-weight-bold mb-3 mx-auto">כותרת 1</h1> -->
@@ -13,16 +23,25 @@
         </v-card-title>
         <v-card-subtitle>בדיקה בדיקה בידקה</v-card-subtitle>
         <v-card-text>
-          <p v-if="readMore" class="subheading font-weight-regular">
+          <p
+            v-if="readMore"
+            class="subheading font-weight-regular"
+          >
             {{ contentToShow }}...
           </p>
-          <p v-else class="subheading font-weight-regular">
+          <p
+            v-else
+            class="subheading font-weight-regular"
+          >
             {{ contentToShow }}
           </p>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="readMore = !readMore"
-            >{{ btnText }}
+          <v-btn
+            color="primary"
+            @click="readMore = !readMore"
+          >
+            {{ btnText }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -41,6 +60,19 @@ export default {
       }
     };
   },
+  computed: {
+    btnText() {
+      return this.readMore ? `קרא עוד` : `הסתר`;
+    },
+    contentToShow() {
+      return this.readMore
+        ? this.article.content.slice(0, 200)
+        : this.article.content;
+    }
+  },
+  created() {
+    this.init();
+  },
   methods: {
     init() {
       this.article.id = 0;
@@ -54,19 +86,6 @@ export default {
                 Mauris est neque, ultricies vel fringilla sed, ultricies quis enim. Cras diam libero, consequat sit amet facilisis id, ultricies sodales dui. Phasellus blandit semper enim, vitae hendrerit tortor bibendum sed. Proin pulvinar, ligula eget aliquet commodo, ipsum lacus ullamcorper erat, scelerisque pulvinar nunc mauris at nisl. Aliquam porta, purus et feugiat varius, est elit pellentesque dui, vel volutpat nisl mauris vitae sapien. Mauris id turpis at ligula ultricies aliquam. Donec enim nibh, ultricies vitae orci eu, lobortis facilisis eros. Suspendisse ut dolor porttitor, tristique elit eu, gravida justo. Curabitur hendrerit efficitur felis, hendrerit consectetur augue pretium tempor. Cras nisl lacus, imperdiet ut ipsum a, malesuada pretium massa. Nulla scelerisque ligula eu tincidunt rhoncus. Curabitur lacinia et libero eu accumsan.
 
                 Aliquam dapibus vestibulum viverra. Proin fringilla in odio quis cursus. Aenean iaculis non libero a dapibus. Mauris at laoreet est, a sagittis sapien. Aenean laoreet nulla eros, id condimentum dui elementum et. Nam at orci et odio tempus molestie tempor vitae tellus. Morbi ac posuere quam. Ut iaculis, magna a efficitur rhoncus, dui felis viverra urna, sit amet pellentesque velit lectus consectetur risus. Duis scelerisque nibh placerat sem auctor, at varius odio vestibulum."`);
-    }
-  },
-  created() {
-    this.init();
-  },
-  computed: {
-    btnText() {
-      return this.readMore ? `קרא עוד` : `הסתר`;
-    },
-    contentToShow() {
-      return this.readMore
-        ? this.article.content.slice(0, 200)
-        : this.article.content;
     }
   }
 };
