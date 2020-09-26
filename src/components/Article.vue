@@ -1,5 +1,34 @@
 <template>
-  <v-row no-gutters>
+  <v-card elevation="5" outlined max-width="600" width="300">
+    <v-img
+      class="white--text"
+      :height="$vuetify.breakpoint.lgAndUp ? '200' : '200'"
+      :src="article.img"
+    >
+      <v-card-title v-text="article.headline"></v-card-title>
+    </v-img>
+    <!--<v-card-title class="headline">
+       <h1 class="display-2 font-weight-bold mb-3 mx-auto">כותרת 1</h1>
+      {{ article.headline }}
+    </v-card-title>
+    <v-card-subtitle v-if="article.subHeader">{{
+          article.subHeader
+        }}</v-card-subtitle>
+        <v-card-text>
+          <p v-if="readMore" class="subheading font-weight-regular">
+            {{ contentToShow }}...
+          </p>
+          <p v-else class="subheading font-weight-regular">
+            {{ contentToShow }}
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" @click="readMore = !readMore">
+            {{ btnText }}
+          </v-btn>
+        </v-card-actions> -->
+  </v-card>
+  <!-- <v-row no-gutters>
     <v-col class="mb-2" md="6" offset-md="3" sm="8" offset-sm="2">
       <v-card elevation="5" outlined max-width="800">
         <v-img
@@ -8,7 +37,7 @@
           :src="article.img"
         />
         <v-card-title class="headline">
-          <!-- <h1 class="display-2 font-weight-bold mb-3 mx-auto">כותרת 1</h1> -->
+           <h1 class="display-2 font-weight-bold mb-3 mx-auto">כותרת 1</h1> 
           {{ article.headline }}
         </v-card-title>
         <v-card-subtitle v-if="article.subHeader">{{
@@ -26,10 +55,10 @@
           <v-btn color="primary" @click="readMore = !readMore">
             {{ btnText }}
           </v-btn>
-        </v-card-actions>
+        </v-card-actions> 
       </v-card>
     </v-col>
-  </v-row>
+  </v-row>-->
 </template>
 
 <script>

@@ -92,10 +92,11 @@
       "
     >
       <v-container
+        fluid
         :class="[
           {
-            'pa-0': $vuetify.breakpoint.mdAndUp,
-            'ma-0': $vuetify.breakpoint.mdAndUp
+            'pr -0': $vuetify.breakpoint.mdAndUp,
+            'mr-0': $vuetify.breakpoint.mdAndUp
           },
           text - sm - center
         ]"
@@ -108,17 +109,26 @@
             <ArticePage />
           </v-flex>
         </v-layout> -->
-        <v-row class="ma-0 pa-0" no-gutters>
+        <v-layout row>
+          <v-flex v-if="$vuetify.breakpoint.mdAndUp" lg3>
+            <ArticePage v-for="index in 2" :key="index" />
+            <Article />
+          </v-flex>
+          <v-flex lg9>
+            <router-view />
+          </v-flex>
+        </v-layout>
+        <!-- <v-row class="ma-0 pa-0" no-gutters>
           <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="4">
             <ArticePage v-for="index in 2" :key="index" />
             <Article />
           </v-col>
           <v-col lg="8" sm="12" xs="12">
-            <!-- <ArticePage /> -->
-            <!-- <Article v-for="index in 5" :key="index" /> -->
+             <ArticePage /> -->
+        <!-- <Article v-for="index in 5" :key="index" /> 
             <router-view />
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-container>
     </v-content>
   </v-app>
