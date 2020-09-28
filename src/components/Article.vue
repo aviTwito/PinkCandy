@@ -4,13 +4,12 @@
       :elevation="hover ? 12 : 2"
       outlined
       max-width="600"
+      class="mx-auto"
       :width="$vuetify.breakpoint.lgAndUp ? '300' : '400'"
       @click="NavigateToArticle(article.id)"
     >
       <v-img
-        contain    
-        class="white--text align-end"
-        max-height="300"
+        
         :src="article.img"
         :gradient="hover ? 'to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)' : ''"
       />
