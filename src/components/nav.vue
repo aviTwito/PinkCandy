@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
-    v-bind:value="value" 
-    v-on:input="$emit('input', $event)" 
+    :value="value"
     :right="$vuetify.rtl"
     fixed
+    @input="$emit('input', $event)"
   >
     <v-list dense>
       <template v-for="item in items">
