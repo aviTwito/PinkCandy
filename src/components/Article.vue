@@ -5,7 +5,7 @@
       outlined
       max-width="600"
       :width="$vuetify.breakpoint.lgAndUp ? '300' : '400'"
-      @click="test"
+      @click="NavigateToArticle(article.id)"
     >
       <v-img
         class="white--text align-end"
@@ -67,10 +67,9 @@ export default {
         : this.article.content;
     }
   },
-  created() {},
   methods: {
-    test() {
-      this.$router.push({ path: "/about" });
+    NavigateToArticle(id) {
+      this.$router.push({ path: `/article/${id}` });
     }
   }
 };
