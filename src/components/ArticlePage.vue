@@ -12,8 +12,7 @@
           כותרת
         </v-card-title>
         <v-img
-          :class="ma - 2"
-          class="white--text align-end"
+          class="white--text align-end ma-2"
           max-height="400"
           :src="article.img"
         />
@@ -27,7 +26,7 @@
 
         <v-card-text class="mr-3">
           <ul>
-            <li v-for="item in article.igredients" :key="item">
+            <li v-for="(item, i) in article.igredients" :key="i">
               {{ item }}
             </li>
           </ul>
@@ -38,7 +37,7 @@
         </v-card-subtitle>
         <v-card-text class="mr-3">
           <ol>
-            <li v-for="item in article.preperation" :key="item">
+            <li v-for="(item, i) in article.preperation" :key="i">
               {{ item.text }}
               <v-img
                 v-if="item.img"
@@ -57,6 +56,7 @@
 <script>
 export default {
   data: () => ({
+    // id: this.$route.params.id,
     styleObject: { border: "1px solid green" },
     article: {
       description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed malesuada lectus.
@@ -101,6 +101,9 @@ export default {
         }
       ]
     }
-  })
+  }),
+  mounted() {
+    console.log(this.$route.params.id);
+  }
 };
 </script>
