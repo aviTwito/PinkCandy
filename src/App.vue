@@ -84,7 +84,7 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-content
+    <v-main
       :style="
         $vuetify.breakpoint.smAndDown
           ? 'padding-top: 112px'
@@ -98,7 +98,7 @@
             'pr -0': $vuetify.breakpoint.mdAndUp,
             'mr-0': $vuetify.breakpoint.mdAndUp
           },
-          text - sm - center
+          `text-sm-center`
         ]"
       >
         <!-- <v-layout column align-center>
@@ -111,7 +111,7 @@
         </v-layout> -->
         <v-layout row>
           <v-flex v-if="$vuetify.breakpoint.mdAndUp" lg3>
-            <ArticePage v-for="index in 2" :key="index" />
+            <ArticePage />
             <Article />
           </v-flex>
           <v-flex lg9>
@@ -130,7 +130,7 @@
           </v-col>
         </v-row> -->
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
