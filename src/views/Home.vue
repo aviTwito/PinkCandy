@@ -10,7 +10,7 @@
   >
     <v-layout row>
       <v-flex
-        v-for="article in mockData2"
+        v-for="article in mockData"
         :key="article.headline"
         lg3
         sm12
@@ -39,7 +39,7 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(["mockData2"])
+    ...mapState(["mockData"])
   }
 };
 </script>

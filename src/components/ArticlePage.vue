@@ -9,15 +9,15 @@
         max-width="1200"
       >
         <v-card-title class="text-h5 justify-center">
-          כותרת
+          {{ selectedArticle.headline }}
         </v-card-title>
         <v-img
           class="white--text align-end ma-2"
           max-height="400"
-          :src="article.img"
+          :src="selectedArticle.img"
         />
         <v-card-text>
-          {{ article.description }}
+          {{ selectedArticle.description }}
         </v-card-text>
         <v-divider />
         <v-card-subtitle class="font-weight-bold pb-1 pr-0 mr-0 pt-2">
@@ -26,7 +26,7 @@
 
         <v-card-text class="mr-3">
           <ul>
-            <li v-for="(item, i) in article.igredients" :key="i">
+            <li v-for="(item, i) in selectedArticle.igredients" :key="i">
               {{ item }}
             </li>
           </ul>
@@ -37,13 +37,13 @@
         </v-card-subtitle>
         <v-card-text class="mr-3">
           <ol>
-            <li v-for="(item, i) in article.preperation" :key="i">
+            <li v-for="(item, i) in selectedArticle.preperation" :key="i">
               {{ item.text }}
               <v-img
                 v-if="item.img"
                 class="white--text align-end mt-2 mb-2"
                 max-height="400"
-                :src="article.img"
+                :src="selectedArticle.img"
               />
             </li>
           </ol>
@@ -54,56 +54,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     // id: this.$route.params.id,
     styleObject: { border: "1px solid green" },
-    article: {
-      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed malesuada lectus.
-
-                Donec ultrices ipsum non ipsum gravida, vitae bibendum nisl fermentum.  "`,
-      img: require("@/assets/test.jpg"),
-      igredients: [
-        "בדיקה 1",
-        "בדיקה 2",
-        "בדיקה 3",
-        "בדיקה 4",
-        "בדיקה 5",
-        "בדיקה 6"
-      ],
-      preperation: [
-        {
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
-        },
-        {
-          text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed malesuada lectus.
-                Donec ultrices ipsum no"`
-        },
-        {
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis el"
-        },
-        {
-          text:
-            "`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, feli",
-          img: require("@/assets/test.jpg")
-        },
-        {
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
-        },
-        {
-          text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, qu"`
-        },
-        {
-          text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed ma"`
-        }
-      ]
-    }
+    selectedArticle: {}
   }),
+  computed: {
+    ...mapState(["mockData"])
+  },
   mounted() {
-    console.log(this.$route.params.id);
+    const temp = this.mockData.find(article => {
+      return article.id === this.$route.params.id;
+    });
+    this.selectedArticle = temp;
   }
 };
 </script>

@@ -110,8 +110,7 @@
           </v-flex>
         </v-layout> -->
         <v-layout row>
-          <v-flex v-if="$vuetify.breakpoint.mdAndUp" lg3>
-            <ArticePage />
+          <v-flex v-if="$vuetify.breakpoint.mdAndUp" lg3 class="pa-2">
             <Article />
           </v-flex>
           <v-flex lg9>
@@ -137,12 +136,10 @@
 <script>
 // import NavDrawer from './components/nav'
 // import helloWorld from '@/components/HelloWorld';
-import ArticePage from "@/components/ArticlePage";
 import Article from "@/components/Article";
 export default {
   name: "App",
   components: {
-    ArticePage,
     Article
   },
   data: () => ({
