@@ -13,7 +13,14 @@
         v-for="article in mockData"
         :key="article.headline"
         lg3
-        class="ma-2"
+        sm12
+        :class="[
+          {
+            'ma-2': $vuetify.breakpoint.mdAndUp,
+            'ma-1': $vuetify.breakpoint.smAndDown,
+            'mx-center': $vuetify.breakpoint.smAndDown
+          }
+        ]"
       >
         <Article :article="article" />
       </v-flex>
