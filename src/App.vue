@@ -87,7 +87,7 @@
     <v-main
       :style="
         $vuetify.breakpoint.smAndDown
-          ? 'padding-top: 112px'
+          ? 'padding-top: 100px'
           : 'padding-top: 128px'
       "
     >
@@ -109,14 +109,14 @@
             <ArticePage />
           </v-flex>
         </v-layout> -->
-        <v-layout row>
-          <v-flex v-if="$vuetify.breakpoint.mdAndUp" lg3 class="pa-2">
+        <v-row no-gutters>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="3" class="pa-2">
             <Article />
-          </v-flex>
-          <v-flex lg9>
+          </v-col>
+          <v-col sm="12" lg="9">
             <router-view />
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
         <!-- <v-row class="ma-0 pa-0" no-gutters>
           <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="4">
             <ArticePage v-for="index in 2" :key="index" />
@@ -147,14 +147,14 @@ export default {
     items: [
       { icon: "mdi-home", text: "ראשי" },
       {
-        icon: "mdi-home",
+        icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
         text: "סידור שולחנות",
         model: false,
         children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }]
       },
       {
-        icon: "mdi-dots-horizontal-circle-outline",
+        icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
         text: "עוד",
         model: false,

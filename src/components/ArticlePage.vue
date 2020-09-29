@@ -1,6 +1,6 @@
 <template>
   <v-row no-gutters>
-    <v-col class="mb-2" md="8" offset-md="2" sm="8" offset-sm="2">
+    <v-col md="8" offset-md="2" sm="8" offset-sm="2">
       <v-card
         :style="$vuetify.breakpoint.smAndDown ? styleObject : ''"
         :class="$vuetify.breakpoint.lgAndUp ? '' : 'ma-2'"
@@ -58,7 +58,7 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     // id: this.$route.params.id,
-    styleObject: { border: "1px solid green" },
+    styleObject: { border: "1px solid #d9be9e" },
     selectedArticle: {}
   }),
   computed: {
