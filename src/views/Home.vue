@@ -1,31 +1,9 @@
 <template>
-  <v-container
-    fluid
-    :class="[
-      {
-        'pa-0': $vuetify.breakpoint.mdAndUp,
-        'ma-0': $vuetify.breakpoint.mdAndUp
-      }
-    ]"
-  >
-    <v-layout row>
-      <v-flex
-        v-for="article in mockData"
-        :key="article.headline"
-        lg3
-        sm12
-        :class="[
-          {
-            'ma-2': $vuetify.breakpoint.mdAndUp,
-            'ma-1': $vuetify.breakpoint.smAndDown,
-            'mx-center': $vuetify.breakpoint.smAndDown
-          }
-        ]"
-      >
-        <Article :article="article" />
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-row>
+    <v-col v-for="article in mockData" :key="article.headline">
+      <Article :article="article" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
