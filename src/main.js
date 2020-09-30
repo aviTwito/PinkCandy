@@ -4,7 +4,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-var firebase = require("firebase/app");
+import firebase from "firebase";
+import { firestorePlugin } from "vuefire";
+
 Vue.config.productionTip = false;
 
 var firebaseConfig = {
@@ -19,6 +21,9 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+Vue.use(firestorePlugin);
+Vue.use(firebase);
 
 new Vue({
   router,
