@@ -148,19 +148,6 @@ export default {
         text: "סידור שולחנות",
         model: false,
         children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }]
-      },
-      {
-        icon: "mdi-chevron-up",
-        "icon-alt": "mdi-chevron-down",
-        text: "עוד",
-        model: false,
-        children: [
-          { text: "Import" },
-          { text: "Export" },
-          { text: "Print" },
-          { text: "Undo changes" },
-          { text: "Other contacts" }
-        ]
       }
     ]
   }),
