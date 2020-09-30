@@ -10,6 +10,15 @@
       <v-toolbar-title v-if="$vuetify.breakpoint.lgAndUp" class="white--text">
         כותרת
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        href="https://instagram.com/the_pink_suger?igshid=1d5kb2e191169"
+        target="_blank"
+      >
+        <v-icon>mdi-instagram</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -83,6 +92,27 @@
           </v-list-item>
         </template>
       </v-list>
+      <template v-slot:append>
+        <v-dialog
+          v-if="$vuetify.breakpoint.mdAndDown"
+          v-model="joinNewLetterDialog"
+          max-width="600px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="mb-5 text-center"
+              text
+              color="accent"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              הצטרפות לניוזלטר
+            </v-btn>
+          </template>
+          <JoinNewsLetter />
+        </v-dialog>
+      </template>
     </v-navigation-drawer>
     <v-main
       :style="
@@ -111,7 +141,7 @@
         </v-layout> -->
         <v-row class="d-flex" justify-lg="space-between" no-gutters>
           <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
-            <Article />
+            <JoinNewsLetter />
           </v-col>
           <v-col justify-self sm="12" lg="10" md="12">
             <v-row
@@ -132,13 +162,14 @@
 </template>
 
 <script>
-import Article from "@/components/Article";
+import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
 export default {
   name: "App",
   components: {
-    Article
+    JoinNewsLetter
   },
   data: () => ({
+    joinNewLetterDialog: false,
     drawer: false,
     items: [
       { icon: "mdi-home", text: "ראשי" },
