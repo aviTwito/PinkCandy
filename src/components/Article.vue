@@ -8,12 +8,11 @@
       @click="NavigateToArticle(article.id)"
     >
       <v-img
-        
+        :contain='$vuetify.breakpoint.lgAndUp? true:false'
         :src="article.img"
         :gradient="hover ? 'to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)' : ''"
       />
-      <v-card-title class="headline mb-1">
-        <!-- <h1 class="display-2 font-weight-bold mb-3 mx-auto">כותרת 1</h1> -->
+      <v-card-title class="headline">
         {{ article.headline }}
       </v-card-title>
       <v-divider></v-divider>
@@ -21,12 +20,15 @@
         article.subHeader
       }}</v-card-subtitle>
       <v-card-text>
-        <p v-if="readMore" class="subheading font-weight-regular">
-          {{ contentToShow }}...
-        </p>
-        <p v-else class="subheading font-weight-regular">
-          {{ contentToShow }}
-        </p>
+        <div v-if="$vuetify.breakpoint.smAndDown">
+            <p v-if="readMore" class="subheading font-weight-regular">
+            {{ contentToShow }}...
+           </p>
+          <p v-else class="subheading font-weight-regular">
+            {{ contentToShow }}
+          </p>
+        </div>
+       
       </v-card-text>
       <!-- <v-card-actions>
           <v-btn color="primary" @click="readMore = !readMore">

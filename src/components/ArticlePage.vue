@@ -3,8 +3,8 @@
     <v-col md="8" offset-md="2" sm="8" offset-sm="2">
       <v-card
         :style="$vuetify.breakpoint.smAndDown ? styleObject : ''"
-        :class="$vuetify.breakpoint.lgAndUp ? '' : 'ma-2'"
-        class="pa-2 pt-0"
+        :class="$vuetify.breakpoint.lgAndUp ? '' : ''"
+        class=" pt-0"
         outlined
         max-width="1200"
       >
@@ -12,7 +12,8 @@
           {{ selectedArticle.headline }}
         </v-card-title>
         <v-img
-          class="white--text align-end ma-2"
+          contain
+          class="white--text align-end "
           max-height="400"
           :src="selectedArticle.img"
         />

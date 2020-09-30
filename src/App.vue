@@ -110,17 +110,17 @@
           </v-flex>
         </v-layout> -->
         <v-row class="d-flex" justify-lg="space-between" no-gutters>
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="2" class="pa-2">
+          <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
             <Article />
           </v-col>
-          <v-col justify-self sm="12" lg="10">
+          <v-col justify-self sm="12" lg="10" md="12">
             <v-row
               no-gutters
               class="d-flex"
               justify-lg="center"
               align-lg="center"
             >
-              <v-col cols="lg-8">
+              <v-col cols="lg-8 md-8">
                 <router-view />
               </v-col>
             </v-row>
