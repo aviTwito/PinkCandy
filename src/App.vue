@@ -126,25 +126,12 @@
             </v-row>
           </v-col>
         </v-row>
-        <!-- <v-row class="ma-0 pa-0" no-gutters>
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="4">
-            <ArticePage v-for="index in 2" :key="index" />
-            <Article />
-          </v-col>
-          <v-col lg="8" sm="12" xs="12">
-             <ArticePage /> -->
-        <!-- <Article v-for="index in 5" :key="index" /> 
-            <router-view />
-          </v-col>
-        </v-row> -->
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import NavDrawer from './components/nav'
-// import helloWorld from '@/components/HelloWorld';
 import Article from "@/components/Article";
 export default {
   name: "App",
