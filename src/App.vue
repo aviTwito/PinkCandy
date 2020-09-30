@@ -109,12 +109,21 @@
             <ArticePage />
           </v-flex>
         </v-layout> -->
-        <v-row no-gutters>
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="3" class="pa-2">
+        <v-row class="d-flex" justify-lg="space-between" no-gutters>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="2" class="pa-2">
             <Article />
           </v-col>
-          <v-col sm="12" lg="9">
-            <router-view />
+          <v-col justify-self sm="12" lg="10">
+            <v-row
+              no-gutters
+              class="d-flex"
+              justify-lg="center"
+              align-lg="center"
+            >
+              <v-col cols="lg-8">
+                <router-view />
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
         <!-- <v-row class="ma-0 pa-0" no-gutters>

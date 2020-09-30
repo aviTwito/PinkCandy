@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col v-for="article in mockData" :key="article.headline">
+    <v-col cols="lg-3" v-for="article in mockData" :key="article.headline">
       <Article :article="article" />
     </v-col>
   </v-row>
