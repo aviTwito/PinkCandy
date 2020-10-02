@@ -10,6 +10,15 @@
       <v-toolbar-title v-if="$vuetify.breakpoint.lgAndUp" class="white--text">
         כותרת
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        href="https://instagram.com/the_pink_suger?igshid=1d5kb2e191169"
+        target="_blank"
+      >
+        <v-icon>mdi-instagram</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -17,7 +26,10 @@
       color="secondary"
       :right="$vuetify.rtl"
       fixed
+      overlay-color="primary"
+      overlay-opacity=".5"
       temporary
+      bottom
     >
       <v-list>
         <v-row>
@@ -83,6 +95,27 @@
           </v-list-item>
         </template>
       </v-list>
+      <template v-slot:append>
+        <v-dialog
+          v-if="$vuetify.breakpoint.mdAndDown"
+          v-model="joinNewLetterDialog"
+          max-width="600px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="mb-5 text-center"
+              text
+              color="accent"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              הצטרפות לניוזלטר
+            </v-btn>
+          </template>
+          <JoinNewsLetter />
+        </v-dialog>
+      </template>
     </v-navigation-drawer>
     <v-main
       :style="
@@ -109,40 +142,40 @@
             <ArticePage />
           </v-flex>
         </v-layout> -->
-        <v-row no-gutters>
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="3" class="pa-2">
-            <Article />
+        <v-row class="d-flex" justify-lg="space-between" no-gutters>
+          <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
+            <JoinNewsLetter />
           </v-col>
-          <v-col sm="12" lg="9">
-            <router-view />
+          <v-col justify-self sm="12" lg="10" md="12">
+            <v-row
+              no-gutters
+              class="d-flex"
+              justify-lg="center"
+              align-lg="center"
+            >
+              <v-col cols="lg-8 md-8">
+                <router-view />
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
-        <!-- <v-row class="ma-0 pa-0" no-gutters>
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" lg="4">
-            <ArticePage v-for="index in 2" :key="index" />
-            <Article />
-          </v-col>
-          <v-col lg="8" sm="12" xs="12">
-             <ArticePage /> -->
-        <!-- <Article v-for="index in 5" :key="index" /> 
-            <router-view />
-          </v-col>
-        </v-row> -->
       </v-container>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
-// import NavDrawer from './components/nav'
-// import helloWorld from '@/components/HelloWorld';
-import Article from "@/components/Article";
+import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
-    Article
+    JoinNewsLetter,
+    Footer
   },
   data: () => ({
+    joinNewLetterDialog: false,
     drawer: false,
     items: [
       { icon: "mdi-home", text: "ראשי" },
@@ -152,19 +185,6 @@ export default {
         text: "סידור שולחנות",
         model: false,
         children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }]
-      },
-      {
-        icon: "mdi-chevron-up",
-        "icon-alt": "mdi-chevron-down",
-        text: "עוד",
-        model: false,
-        children: [
-          { text: "Import" },
-          { text: "Export" },
-          { text: "Print" },
-          { text: "Undo changes" },
-          { text: "Other contacts" }
-        ]
       }
     ]
   }),
