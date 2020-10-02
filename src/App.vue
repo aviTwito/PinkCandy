@@ -26,7 +26,10 @@
       color="secondary"
       :right="$vuetify.rtl"
       fixed
+      overlay-color="primary"
+      overlay-opacity=".5"
       temporary
+      bottom
     >
       <v-list>
         <v-row>
@@ -158,15 +161,18 @@
         </v-row>
       </v-container>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
-    JoinNewsLetter
+    JoinNewsLetter,
+    Footer
   },
   data: () => ({
     joinNewLetterDialog: false,
