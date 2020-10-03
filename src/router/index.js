@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ArticlePage from "@/components/ArticlePage";
+import CountriesHome from "../views/CountriesHome";
 Vue.use(VueRouter);
 
 const routes = [
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/counries",
+    name: "Counries",
+    component: CountriesHome
   },
   {
     path: "/article/:id",

@@ -57,7 +57,10 @@
               </v-subheader>
             </v-flex>
             <v-flex xs6 class="text-xs-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
+              <a v-if="item.href" :href="item.href" class="body-2 black--text"
+                >EDIT</a
+              >
+              <a v-if="item.href" href="#!" class="body-2 black--text">EDIT</a>
             </v-flex>
           </v-layout>
           <v-list-group
@@ -85,7 +88,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
-          <v-list-item v-else :key="item.text" @click="false">
+          <v-list-item v-else :key="item.text" :to="item.href">
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -153,7 +156,7 @@
               justify-lg="center"
               align-lg="center"
             >
-              <v-col cols="lg-8 md-8">
+              <v-col cols="lg-8 md-8 sm-8">
                 <router-view />
               </v-col>
             </v-row>
@@ -178,7 +181,12 @@ export default {
     joinNewLetterDialog: false,
     drawer: false,
     items: [
-      { icon: "mdi-home", text: "ראשי" },
+      { icon: "mdi-home", text: "ראשי", href: "/" },
+      {
+        icon: "mdi-silverware-variant",
+        text: "אוכל מסביב לעולם",
+        href: "/counries"
+      },
       {
         icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
