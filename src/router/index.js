@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ArticlePage from "@/components/ArticlePage";
+import CountriesArticles from "@/components/FoodAroundTheWorld/Articles";
 import CountriesHome from "../views/CountriesHome";
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/counries",
     name: "Counries",
     component: CountriesHome
+  },
+  {
+    path: "/counries-articles",
+    name: "CounriesArticles",
+    component: CountriesArticles
   },
   {
     path: "/article/:id",
