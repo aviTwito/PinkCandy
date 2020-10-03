@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/firebaseAPI";
 export default {
   data: () => ({
     styleObject: { border: "1px solid #d9be9e" },

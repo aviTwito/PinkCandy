@@ -19,6 +19,14 @@
       >
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
+      <v-dialog v-model="joinNewLetterDialog" max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </template>
+        <Login />
+      </v-dialog>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -167,12 +175,14 @@
 
 <script>
 import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
+import Login from "@/components/Login.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
     JoinNewsLetter,
-    Footer
+    Footer,
+    Login
   },
   data: () => ({
     joinNewLetterDialog: false,

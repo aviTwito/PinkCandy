@@ -9,7 +9,7 @@
 <script>
 // @ is an alias to /src
 import Article from "@/components/Article";
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/firebaseAPI";
 export default {
   name: "Home",
   components: {

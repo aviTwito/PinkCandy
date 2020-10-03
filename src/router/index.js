@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ArticlePage from "@/components/ArticlePage";
+import CreateRecipe from "@/components/Recipes/CreateRecipe";
 Vue.use(VueRouter);
 
 const routes = [
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/create-recipe",
+    name: "CreateRecipe",
+    component: CreateRecipe
   },
   {
     path: "/article/:id",
