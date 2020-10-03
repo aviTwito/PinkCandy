@@ -4,19 +4,19 @@
       <v-card
         :style="$vuetify.breakpoint.smAndDown ? '' : ''"
         :class="$vuetify.breakpoint.lgAndUp ? '' : ''"
-        class=" pt-0"
+        class="pt-0"
         flat
         max-width="1200"
       >
-        <v-card-title class="text-h5 justify-center">
-          {{ selectedArticle.headline }}
-        </v-card-title>
         <v-img
           contain
-          class="white--text align-end "
+          class="white--text "
           max-height="400"
           :src="selectedArticle.img"
         />
+        <v-card-title class="text-h5 justify-center">
+          {{ selectedArticle.headline }}
+        </v-card-title>
         <v-card-text>
           {{ selectedArticle.description }}
         </v-card-text>
@@ -42,7 +42,7 @@
         >
           אופן הכנה
         </v-card-subtitle>
-        <v-card-text class="mr-3">
+        <v-card-text class="mr-8">
           <ol>
             <v-row v-for="(item, i) in selectedArticle.preperation" :key="i">
               <li>
@@ -50,7 +50,7 @@
               </li>
               <v-img
                 v-if="item.img"
-                class="white--text align-end mt-2 mb-2"
+                class="white--text align-end mt-2 mb-2 "
                 max-height="400"
                 :src="selectedArticle.img"
               />

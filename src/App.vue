@@ -27,7 +27,7 @@
       :right="$vuetify.rtl"
       fixed
       overlay-color="primary"
-      overlay-opacity=".5"
+      overlay-opacity=".4"
       temporary
       bottom
     >

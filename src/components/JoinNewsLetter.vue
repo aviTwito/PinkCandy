@@ -6,7 +6,7 @@
       <v-text-field placeholder="Email"></v-text-field>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="accent">שלח</v-btn>
+      <v-btn color="primary">שלח</v-btn>
     </v-card-actions>
   </v-card>
 </template>
