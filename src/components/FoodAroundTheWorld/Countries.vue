@@ -30,7 +30,7 @@ export default {
     mockData: [
       {
         name: "פראג",
-        img: require("@/assets/test.jpg")
+        img: require("@/assets/Prague/praguecover.jpeg")
       },
       {
         name: "סין",
