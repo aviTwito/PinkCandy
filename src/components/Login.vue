@@ -6,7 +6,7 @@
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" @click="Login">התחבר</v-btn>
-      <v-btn color="primary" @click="SignUp">הירשם</v-btn>
+      <!-- <v-btn color="primary" @click="SignUp">הירשם</v-btn> -->
       <v-btn color="primary" @click="SignOut">התנתק</v-btn>
     </v-card-actions>
   </v-card>
@@ -22,41 +22,39 @@ export default {
     };
   },
   methods: {
-    async SignUp() {
-      await auth
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(user => {
-          console.log(user);
+    // async SignUp() {
+    //   await auth
+    //     .createUserWithEmailAndPassword(this.email, this.password)
+    //     .then(user => {
+    //       console.log(user);
 
-          // AddUserRole(user);
-          // this.email = "";
-          // this.password = "";
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    //       // AddUserRole(user);
+    //       // this.email = "";
+    //       // this.password = "";
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     async SignOut() {
       auth.signOut();
     },
     async Login() {
       await auth
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(cred => {
-          console.log(cred);
-        })
+        .then(() => {})
         .catch(() => {
           this.email = "";
           this.password = "";
         });
       this.email = "";
       this.password = "";
-    },
-    Init() {
-      auth.OnAuthStateChanged(user => {
-        console.log(user);
-      });
     }
+    // Init() {
+    //   auth.OnAuthStateChanged(user => {
+    //     console.log(user);
+    //   });
+    // }
   }
 };
 </script>

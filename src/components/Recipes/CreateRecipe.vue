@@ -76,7 +76,7 @@
           </v-row>
         </v-col>
         <v-col cols="12">
-          <v-card class="ma-0">
+          <v-card flat class="ma-0">
             <v-card-title>
               הוראות הכנה
             </v-card-title>
@@ -176,15 +176,15 @@ export default {
           this.uploadValue =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         },
-        error => {
-          console.log(error.message);
+        () => {
+          // console.log(error.message);
         },
         () => {
           this.uploadValue = 100;
           storageRef.snapshot.ref.getDownloadURL().then(url => {
             this.img1 = url;
             this.article.img = url;
-            console.log(this.img1);
+            // console.log(this.img1);
           });
         }
       );

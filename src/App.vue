@@ -27,6 +27,9 @@
         </template>
         <Login />
       </v-dialog>
+      <v-btn text @click="$router.push('/create-recipe')">
+        יצירת מתכון
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
