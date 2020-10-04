@@ -7,6 +7,7 @@
     <v-card-actions>
       <v-btn color="primary" @click="Login">התחבר</v-btn>
       <v-btn color="primary" @click="SignUp">הירשם</v-btn>
+      <v-btn color="primary" @click="SignOut">התנתק</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -26,9 +27,17 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(user => {
           console.log(user);
-          this.email = "";
-          this.password = "";
+
+          // AddUserRole(user);
+          // this.email = "";
+          // this.password = "";
+        })
+        .catch(err => {
+          console.log(err);
         });
+    },
+    async SignOut() {
+      auth.signOut();
     },
     async Login() {
       await auth
@@ -42,6 +51,11 @@ export default {
         });
       this.email = "";
       this.password = "";
+    },
+    Init() {
+      auth.OnAuthStateChanged(user => {
+        console.log(user);
+      });
     }
   }
 };
