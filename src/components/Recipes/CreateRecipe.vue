@@ -35,18 +35,97 @@
             </div>
           </v-flex>
         </v-row>
+        <v-col cols="12" sm="12">
+          <v-text-field
+            v-model="article.description"
+            placeholder="תיאור"
+          ></v-text-field>
+        </v-col>
+        <v-col class="mb-0 pb-0" cols="12">
+          <v-row justify="start" align="center">
+            <v-col sm="4">
+              <v-text-field
+                v-model="newIgredient"
+                placeholder="מצרך"
+                @keyup.enter="addNewIgredient"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col sm="1">
+              <v-btn icon @click="addNewIgredient">
+                <v-icon>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col class="mt-0 pt-0" cols="12">
+          <v-row no-gutters>
+            <v-col cols="4">
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in article.igredients"
+                  :key="index"
+                  class="mr-0 pr-0"
+                >
+                  {{ index + 1 }}. {{ item }}
+                </v-list-item>
+              </v-list>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12">
+          <v-card class="ma-0">
+            <v-card-title>
+              הוראות הכנה
+            </v-card-title>
+            <v-card-text>
+              <v-row justify="start" align="center">
+                <v-col sm="4">
+                  <v-text-field
+                    v-model="newPreperationStep.text"
+                    placeholder="מצרך"
+                    @keyup.enter="addNewPreperationStep"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col sm="1">
+                  <v-btn icon @click="addNewPreperationStep">
+                    <v-icon>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in article.preperation"
+                  :key="index"
+                >
+                  {{ index + 1 }}. {{ item.text }}
+                </v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col sm="12">
+          <v-btn @click="AddNewRecipe" color="primary">
+            שלח
+          </v-btn>
+        </v-col>
       </v-row>
     </v-container>
   </v-form>
 </template>
 
 <script>
-import { firestorage } from "@/firebase/firebaseAPI";
+import { firestorage, db } from "@/firebase/firebaseAPI";
 export default {
   data: () => ({
     article: {
       headline: "",
-      img: require("@/assets/test.jpg"),
+      img: "",
       content: "",
       subHeader: "",
       description: "",
@@ -54,11 +133,28 @@ export default {
       igredients: [],
       preperation: []
     },
+    newIgredient: "",
+    newPreperationStep: {
+      text: "",
+      img: ""
+    },
     caption: "",
     img1: "",
     imageData: null
   }),
   methods: {
+    AddNewRecipe() {
+      db.collection("recipes").add(this.article);
+    },
+    addNewIgredient() {
+      this.article.igredients.push(this.newIgredient);
+      this.newIgredient = "";
+    },
+    addNewPreperationStep() {
+      const temp = this.newPreperationStep;
+      this.article.preperation.push(temp);
+      this.newPreperationStep = { text: "", img: "" };
+    },
     click1() {
       this.$refs.input1.click();
     },
