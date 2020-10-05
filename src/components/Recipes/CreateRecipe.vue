@@ -318,7 +318,20 @@ export default {
       this.newPreperationItem.stpes.splice(index, 1);
     },
     AddNewRecipe() {
-      db.collection("recipes").add(this.article);
+      db.collection("recipes")
+        .add(this.article)
+        .then(() => {
+          this.article = {
+            headline: "",
+            img: "",
+            content: "",
+            subHeader: "",
+            description: "",
+
+            igredients: [],
+            preperation: []
+          };
+        });
     },
     addNewIgredient() {
       this.NewIngredientsItem.subIgredients.push(this.newIgredient);
