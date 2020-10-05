@@ -1,21 +1,22 @@
 <template>
   <v-row no-gutters>
-    <v-col md="8" offset-md="2" sm="8" offset-sm="2">
+    <v-col>
       <v-card
-        :style="$vuetify.breakpoint.smAndDown ? styleObject : ''"
-        :class="$vuetify.breakpoint.lgAndUp ? '' : 'ma-2'"
-        class="pa-2 pt-0"
-        outlined
+        :style="$vuetify.breakpoint.smAndDown ? '' : ''"
+        :class="$vuetify.breakpoint.lgAndUp ? '' : ''"
+        class="pt-0"
+        flat
         max-width="1200"
       >
-        <v-card-title class="text-h5 justify-center">
-          {{ selectedArticle.headline }}
-        </v-card-title>
         <v-img
-          class="white--text align-end ma-2"
+          contain
+          class="white--text "
           max-height="400"
           :src="selectedArticle.img"
         />
+        <v-card-title class="text-h5 justify-center">
+          {{ selectedArticle.headline }}
+        </v-card-title>
         <v-card-text>
           {{ selectedArticle.description }}
         </v-card-text>
