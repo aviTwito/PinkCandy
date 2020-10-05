@@ -88,7 +88,7 @@
                                 >
                               </v-list-item-content>
                               <v-list-item-action>
-                                <v-btn @click="removeIgredient(index)" icon>
+                                <v-btn icon @click="removeIgredient(index)">
                                   <v-icon small>
                                     mdi-delete
                                   </v-icon>
@@ -124,7 +124,7 @@
               מצרכים
             </v-card-title>
             <template v-for="(igredient, i) in article.igredients">
-              <v-card-text class="mb-0 pb-0" :key="igredient + i">
+              <v-card-text :key="igredient + i" class="mb-0 pb-0">
                 <v-subheader>{{ igredient.title }}</v-subheader>
                 <v-divider></v-divider>
                 <v-card-text class="ma-0 pa-0">
