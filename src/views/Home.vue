@@ -9,18 +9,15 @@
 <script>
 // @ is an alias to /src
 import Article from "@/components/Article";
-import { db } from "@/firebase/db";
+import { mapState } from "vuex";
 export default {
   name: "Home",
   components: {
     Article
   },
-  data: () => ({
-    mockData: []
-  }),
-  computed: {},
-  firestore: {
-    mockData: db.collection("recipes")
+  data: () => ({}),
+  computed: {
+    ...mapState(["mockData"])
   }
 };
 </script>
