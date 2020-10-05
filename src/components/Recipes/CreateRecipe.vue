@@ -15,25 +15,23 @@
           ></v-text-field>
         </v-col>
         <v-row>
-          <v-flex md6 offset-sm3>
-            <div>
-              <div>
-                <v-btn @click="click1">תמונה</v-btn>
-                <input
-                  ref="input1"
-                  type="file"
-                  style="display: none"
-                  accept="image/*"
-                  @change="previewImage"
-                />
-              </div>
-
-              <div v-if="imageData != null">
-                <img class="preview" height="268" width="356" :src="img1" />
-                <br />
-              </div>
+          <v-col cols="12" sm="12">
+            <div class="mx-auto mb-2">
+              <v-btn @click="click1">תמונה</v-btn>
+              <input
+                ref="input1"
+                type="file"
+                style="display: none"
+                accept="image/*"
+                @change="previewImage"
+              />
             </div>
-          </v-flex>
+
+            <div v-if="imageData != null">
+              <img class="preview" height="200" width="356" :src="img1" />
+              <br />
+            </div>
+          </v-col>
         </v-row>
         <v-col cols="12" sm="12">
           <v-text-field
@@ -41,42 +39,117 @@
             placeholder="תיאור"
           ></v-text-field>
         </v-col>
-        <v-col class="mb-0 pb-0" cols="12">
-          <v-row justify="start" align="center">
-            <v-col sm="4">
-              <v-text-field
-                v-model="newIgredient"
-                placeholder="מצרך"
-                @keyup.enter="addNewIgredient"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col sm="1">
-              <v-btn icon @click="addNewIgredient">
-                <v-icon>
-                  mdi-plus
-                </v-icon>
+        <v-col cols="12" sm="12">
+          <v-dialog v-model="AddIgredientsDialog" max-width="800px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="secondary" dark v-bind="attrs" v-on="on">
+                הוספת מצרכים
               </v-btn>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col class="mt-0 pt-0" cols="12">
-          <v-row no-gutters>
-            <v-col cols="4">
-              <v-list>
-                <v-list-item
-                  v-for="(item, index) in article.igredients"
-                  :key="index"
-                  class="mr-0 pr-0"
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">הוספת מצרכים</span>
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                  v-model="NewIngredientsItem.title"
+                  placeholder="כותרת"
                 >
-                  {{ index + 1 }}. {{ item }}
-                </v-list-item>
-              </v-list>
-            </v-col>
-          </v-row>
+                </v-text-field>
+                <v-row align="center">
+                  <v-col sm="4">
+                    <v-text-field
+                      v-model="newIgredient"
+                      placeholder="מצרך"
+                      @keyup.enter="addNewIgredient"
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col sm="1">
+                    <v-btn icon @click="addNewIgredient">
+                      <v-icon>
+                        mdi-plus
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col class="mt-0 pt-0" cols="12">
+                    <v-row no-gutters>
+                      <v-col cols="4">
+                        <v-card flat tile>
+                          <template
+                            v-for="(item,
+                            index) in NewIngredientsItem.subIgredients"
+                          >
+                            <v-list-item :key="item + index" class="mr-0 pr-0">
+                              <v-list-item-content>
+                                <v-list-item-title
+                                  >{{ index + 1 }}.
+                                  {{ item }}</v-list-item-title
+                                >
+                              </v-list-item-content>
+                              <v-list-item-action>
+                                <v-btn @click="removeIgredient(index)" icon>
+                                  <v-icon small>
+                                    mdi-delete
+                                  </v-icon>
+                                </v-btn>
+                              </v-list-item-action>
+                            </v-list-item>
+                            <v-divider
+                              v-if="
+                                index + 1 <
+                                  NewIngredientsItem.subIgredients.length
+                              "
+                              :key="index"
+                            ></v-divider>
+                          </template>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="primary" @click="AddIngredients">
+                  הוסף
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-col>
+
+        <v-col cols="12" sm="12">
+          <v-card flat tile>
+            <v-card-title class="text-right">
+              מצרכים
+            </v-card-title>
+            <template v-for="(igredient, i) in article.igredients">
+              <v-card-text class="mb-0 pb-0" :key="igredient + i">
+                <v-subheader>{{ igredient.title }}</v-subheader>
+                <v-divider></v-divider>
+                <v-card-text class="ma-0 pa-0">
+                  <v-row :key="i" dense>
+                    <v-col
+                      v-for="(subIgredient, k) in igredient.subIgredients"
+                      :key="subIgredient + k"
+                      cols="6"
+                      sm="12"
+                      lg="6"
+                    >
+                      <v-list-item>
+                        <v-list-item-subtitle>
+                          {{ subIgredient }}
+                        </v-list-item-subtitle>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card-text>
+            </template>
+          </v-card>
         </v-col>
         <v-col cols="12">
-          <v-card flat class="ma-0">
+          <v-card class="ma-0">
             <v-card-title>
               הוראות הכנה
             </v-card-title>
@@ -110,7 +183,7 @@
           </v-card>
         </v-col>
         <v-col sm="12">
-          <v-btn @click="AddNewRecipe" color="primary">
+          <v-btn color="primary" @click="AddNewRecipe">
             שלח
           </v-btn>
         </v-col>
@@ -130,24 +203,63 @@ export default {
       subHeader: "",
       description: "",
 
-      igredients: [],
+      igredients: [
+        {
+          title: "למלית",
+          subIgredients: [
+            "מלית 1",
+            "מלית 2",
+            "מלית 3",
+            "מלית 4",
+            "מלית 5",
+            "מלית 6"
+          ]
+        },
+        {
+          title: "לתחתית",
+          subIgredients: [
+            "תחתית 1",
+            "תחתית 2",
+            "תחתית 3",
+            "תחתית 4",
+            "תחתית 5",
+            "תחתית 6"
+          ]
+        }
+      ],
       preperation: []
+    },
+    NewIngredientsItem: {
+      title: "",
+      subIgredients: []
     },
     newIgredient: "",
     newPreperationStep: {
       text: "",
       img: ""
     },
+    AddIgredientsDialog: false,
     caption: "",
     img1: "",
     imageData: null
   }),
   methods: {
+    AddIngredients() {
+      this.article.igredients.push(this.NewIngredientsItem);
+      this.NewIngredientsItem = {
+        title: "",
+        subIgredients: []
+      };
+      this.AddIgredientsDialog = false;
+    },
+    removeIgredient(index) {
+      this.NewIngredientsItem.subIgredients.splice(index, 1);
+    },
     AddNewRecipe() {
       db.collection("recipes").add(this.article);
     },
     addNewIgredient() {
-      this.article.igredients.push(this.newIgredient);
+      this.NewIngredientsItem.subIgredients.push(this.newIgredient);
       this.newIgredient = "";
     },
     addNewPreperationStep() {
