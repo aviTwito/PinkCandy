@@ -74,7 +74,7 @@
                   </v-col>
                   <v-col class="mt-0 pt-0" cols="12">
                     <v-row no-gutters>
-                      <v-col cols="4">
+                      <v-col cols="12">
                         <v-card flat tile>
                           <template
                             v-for="(item,
@@ -148,36 +148,104 @@
             </template>
           </v-card>
         </v-col>
+        <v-col cols="12"> </v-col>
+        <v-col cols="12" sm="12">
+          <v-dialog v-model="AddnewPreperationDialog" max-width="800px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="secondary" dark v-bind="attrs" v-on="on">
+                הוספת הוראות
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">הוספת הוראות</span>
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                  v-model="newPreperationItem.title"
+                  placeholder="כותרת"
+                >
+                </v-text-field>
+                <v-row align="center">
+                  <v-col sm="4">
+                    <v-text-field
+                      v-model="newStep"
+                      placeholder="צעד"
+                      @keyup.enter="addNewStep"
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col sm="1">
+                    <v-btn icon @click="addNewStep">
+                      <v-icon>
+                        mdi-plus
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col class="mt-0 pt-0" cols="12">
+                    <v-row no-gutters>
+                      <v-col cols="12">
+                        <v-card flat tile>
+                          <template
+                            v-for="(item, index) in newPreperationItem.steps"
+                          >
+                            <v-list-item
+                              :key="item.text + index"
+                              class="mr-0 pr-0"
+                            >
+                              <v-list-item-content>
+                                <v-list-item-title
+                                  >{{ index + 1 }}.
+                                  {{ item.text }}</v-list-item-title
+                                >
+                              </v-list-item-content>
+                              <v-list-item-action>
+                                <v-btn
+                                  icon
+                                  @click="removePreperationStep(index)"
+                                >
+                                  <v-icon small>
+                                    mdi-delete
+                                  </v-icon>
+                                </v-btn>
+                              </v-list-item-action>
+                            </v-list-item>
+                            <v-divider
+                              v-if="index + 1 < newPreperationItem.steps.length"
+                              :key="index"
+                            ></v-divider>
+                          </template>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="primary" @click="AddPreperations">
+                  הוסף
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-col>
+        <v-col cols="12"> </v-col>
         <v-col cols="12">
           <v-card class="ma-0">
             <v-card-title>
               הוראות הכנה
             </v-card-title>
+
             <v-card-text>
-              <v-row justify="start" align="center">
-                <v-col sm="4">
-                  <v-text-field
-                    v-model="newPreperationStep.text"
-                    placeholder="מצרך"
-                    @keyup.enter="addNewPreperationStep"
-                  >
-                  </v-text-field>
-                </v-col>
-                <v-col sm="1">
-                  <v-btn icon @click="addNewPreperationStep">
-                    <v-icon>
-                      mdi-plus
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
               <v-list>
-                <v-list-item
-                  v-for="(item, index) in article.preperation"
-                  :key="index"
-                >
-                  {{ index + 1 }}. {{ item.text }}
-                </v-list-item>
+                <div v-for="(item, index) in article.preperation" :key="index">
+                  <v-list-item-title>
+                    {{ item.title }}
+                  </v-list-item-title>
+                  <v-list-item v-for="(step, k) in item.steps" :key="k">
+                    {{ index + 1 }}. {{ step.text }}
+                  </v-list-item>
+                </div>
               </v-list>
             </v-card-text>
           </v-card>
@@ -203,30 +271,7 @@ export default {
       subHeader: "",
       description: "",
 
-      igredients: [
-        {
-          title: "למלית",
-          subIgredients: [
-            "מלית 1",
-            "מלית 2",
-            "מלית 3",
-            "מלית 4",
-            "מלית 5",
-            "מלית 6"
-          ]
-        },
-        {
-          title: "לתחתית",
-          subIgredients: [
-            "תחתית 1",
-            "תחתית 2",
-            "תחתית 3",
-            "תחתית 4",
-            "תחתית 5",
-            "תחתית 6"
-          ]
-        }
-      ],
+      igredients: [],
       preperation: []
     },
     NewIngredientsItem: {
@@ -234,11 +279,17 @@ export default {
       subIgredients: []
     },
     newIgredient: "",
+    AddIgredientsDialog: false,
+    newPreperationItem: {
+      title: "",
+      steps: []
+    },
+    newStep: "",
     newPreperationStep: {
       text: "",
       img: ""
     },
-    AddIgredientsDialog: false,
+    AddnewPreperationDialog: false,
     caption: "",
     img1: "",
     imageData: null
@@ -252,8 +303,19 @@ export default {
       };
       this.AddIgredientsDialog = false;
     },
+    AddPreperations() {
+      this.article.preperation.push(this.newPreperationItem);
+      this.newPreperationItem = {
+        title: "",
+        steps: []
+      };
+      this.AddnewPreperationDialog = false;
+    },
     removeIgredient(index) {
       this.NewIngredientsItem.subIgredients.splice(index, 1);
+    },
+    removePreperationStep(index) {
+      this.newPreperationItem.stpes.splice(index, 1);
     },
     AddNewRecipe() {
       db.collection("recipes").add(this.article);
@@ -261,6 +323,13 @@ export default {
     addNewIgredient() {
       this.NewIngredientsItem.subIgredients.push(this.newIgredient);
       this.newIgredient = "";
+    },
+    addNewPreperation() {
+      this.newPreperationItem.push(this.newPreperationStep);
+    },
+    addNewStep() {
+      this.newPreperationItem.steps.push({ text: this.newStep, img: "" });
+      this.newStep = "";
     },
     addNewPreperationStep() {
       const temp = this.newPreperationStep;
