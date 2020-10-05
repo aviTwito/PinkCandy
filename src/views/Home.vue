@@ -1,6 +1,12 @@
 <template>
   <v-row>
-    <v-col v-for="article in mockData" :key="article.headline" cols="lg-4">
+    <v-col
+      v-for="article in mockData"
+      :key="article.headline"
+      :cols="$vuetify.breakpoint.lgAndUp ? '12' : '6'"
+      sm="3"
+      lg="4"
+    >
       <Article :article="article" />
     </v-col>
   </v-row>
@@ -9,18 +15,15 @@
 <script>
 // @ is an alias to /src
 import Article from "@/components/Article";
-import { db } from "@/firebase/firebaseAPI";
+import { mapState } from "vuex";
 export default {
   name: "Home",
   components: {
     Article
   },
-  data: () => ({
-    mockData: []
-  }),
-  computed: {},
-  firestore: {
-    mockData: db.collection("recipes")
+  data: () => ({}),
+  computed: {
+    ...mapState(["mockData"])
   }
 };
 </script>

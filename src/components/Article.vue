@@ -1,6 +1,7 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
+    v-if="$vuetify.breakpoint.lgAndUp"
       :elevation="hover ? 12 : 2"
       outlined
       max-width="600"
@@ -30,11 +31,21 @@
         </div>
        
       </v-card-text>
-      <!-- <v-card-actions>
-          <v-btn color="primary" @click="readMore = !readMore">
-            {{ btnText }}
-          </v-btn>
-        </v-card-actions> -->
+     
+    </v-card>
+    <v-card v-else>
+      <v-img
+      
+        height="150"
+        class="white--text align-end"
+        :src="article.img"
+        gradient="to top right, rgba(100,115,201,.20), rgba(25,32,72,.4)"
+        @click="NavigateToArticle(article.id)"
+      >
+      <v-card-title>
+        {{ article.headline }}
+      </v-card-title>
+      </v-img>
     </v-card>
   </v-hover>
 </template>
