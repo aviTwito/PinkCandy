@@ -19,7 +19,7 @@
       >
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
-      <v-dialog v-model="joinNewLetterDialog" max-width="600px">
+      <v-dialog v-model="LoginDialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
             <v-icon>mdi-account</v-icon>
@@ -189,6 +189,7 @@ export default {
   },
   data: () => ({
     joinNewLetterDialog: false,
+    LoginDialog: false,
     drawer: false,
     items: [
       { icon: "mdi-home", text: "ראשי" },
