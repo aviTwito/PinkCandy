@@ -67,21 +67,21 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { db } from "@/firebase/db";
 export default {
   data: () => ({
-    // id: this.$route.params.id,
     styleObject: { border: "1px solid #d9be9e" },
-    selectedArticle: {}
+    selectedArticle: {},
+    mockData: []
   }),
-  computed: {
-    ...mapState(["mockData"])
-  },
+
   mounted() {
-    const temp = this.mockData.find(article => {
-      return article.id === this.$route.params.id;
-    });
-    this.selectedArticle = temp;
+    db.collection("recipes")
+      .doc(this.$route.params.id)
+      .get()
+      .then(snapshot => {
+        this.selectedArticle = snapshot.data();
+      });
   }
 };
 </script>
