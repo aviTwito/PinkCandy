@@ -38,7 +38,7 @@ export default [
     ],
     preperation: [
       {
-        titie: "",
+        title: "הכנת המלית",
         steps: [
           {
             text:
@@ -63,9 +63,6 @@ export default [
           },
           {
             text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, qu"`
-          },
-          {
-            text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed ma"`
           }
         ]
       }
