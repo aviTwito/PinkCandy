@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+import mockData from "@/data/mock_data.js";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    mockData
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations: {},
+  actions: {},
+  modules: {}
+});

@@ -5,7 +5,12 @@ module.exports = {
     jest: true
   },
 
-  extends: ["eslint:recommended", "plugin:vue/essential"],
+  extends: [
+    "eslint:recommended",
+    "plugin:vue/recommended",
+    "prettier",
+    "prettier/vue"
+  ],
   parserOptions: {
     parser: "babel-eslint",
 

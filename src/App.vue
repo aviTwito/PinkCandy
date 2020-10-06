@@ -1,18 +1,53 @@
 <template>
-  <v-app :style="{background: $vuetify.theme.themes[theme].background}">
-    <v-app-bar :clipped-right="$vuetify.breakpoint.lgAndUp" color="primary" fixed>
+  <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
+    <v-app-bar
+      :clipped-right="$vuetify.breakpoint.lgAndUp"
+      color="primary"
+      fixed
+    >
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
 
-      <v-toolbar-title class="white--text" v-if="$vuetify.breakpoint.lgAndUp">כותרת</v-toolbar-title>
+      <v-toolbar-title v-if="$vuetify.breakpoint.lgAndUp" class="white--text">
+        כותרת
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        href="https://instagram.com/the_pink_suger?igshid=1d5kb2e191169"
+        target="_blank"
+      >
+        <v-icon>mdi-instagram</v-icon>
+      </v-btn>
+      <v-dialog v-model="LoginDialog" max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </template>
+        <Login />
+      </v-dialog>
+      <v-btn text @click="$router.push('/create-recipe')">
+        יצירת מתכון
+      </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer color="secondary" v-model="drawer" :right="$vuetify.rtl" fixed temporary>
+    <v-navigation-drawer
+      v-model="drawer"
+      color="secondary"
+      :right="$vuetify.rtl"
+      fixed
+      overlay-color="primary"
+      overlay-opacity=".4"
+      temporary
+      bottom
+    >
       <v-list>
         <v-row>
           <v-col cols="2">
             <v-list-item>
               <v-list-item-action>
-                <v-btn color="white" @click="drawer = false" text exact icon>
+                <v-btn color="white" text exact icon @click="drawer = false">
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -20,7 +55,7 @@
           </v-col>
           <v-col>
             <v-list-item cols="10">
-              <v-text-field class="pa-2" placeholder="חיפוש"></v-text-field>
+              <v-text-field class="pa-2" placeholder="חיפוש" />
             </v-list-item>
           </v-col>
         </v-row>
@@ -28,7 +63,9 @@
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
             </v-flex>
             <v-flex xs6 class="text-xs-center">
               <a href="#!" class="body-2 black--text">EDIT</a>
@@ -46,7 +83,11 @@
                 <v-list-item-title>{{ item.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-for="(child, i) in item.children" :key="i" @click="false">
+            <v-list-item
+              v-for="(child, i) in item.children"
+              :key="i"
+              @click="false"
+            >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -65,58 +106,108 @@
           </v-list-item>
         </template>
       </v-list>
+      <template v-slot:append>
+        <v-dialog
+          v-if="$vuetify.breakpoint.mdAndDown"
+          v-model="joinNewLetterDialog"
+          max-width="600px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="mb-5 text-center"
+              text
+              color="accent"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              הצטרפות לניוזלטר
+            </v-btn>
+          </template>
+          <JoinNewsLetter />
+        </v-dialog>
+      </template>
     </v-navigation-drawer>
-    <v-content :style="$vuetify.breakpoint.smAndDown ? 'padding-top: 112px' : 'padding-top: 128px'">
-      <v-container>
-        <Artice v-for="index in 5" :key="index" />
+    <v-main
+      :style="
+        $vuetify.breakpoint.smAndDown
+          ? 'padding-top: 100px'
+          : 'padding-top: 128px'
+      "
+    >
+      <v-container
+        fluid
+        :class="[
+          {
+            'pr -0': $vuetify.breakpoint.mdAndUp,
+            'mr-0': $vuetify.breakpoint.mdAndUp
+          },
+          `text-sm-center`
+        ]"
+      >
+        <!-- <v-layout column align-center>
+          <v-flex>
+            
+          </v-flex>
+          <v-flex>
+            <ArticePage />
+          </v-flex>
+        </v-layout> -->
+        <v-row class="d-flex" justify-lg="space-between" no-gutters>
+          <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
+            <JoinNewsLetter />
+          </v-col>
+          <v-col justify-self sm="12" lg="10" md="12">
+            <v-row
+              no-gutters
+              class="d-flex"
+              justify-lg="center"
+              align-lg="center"
+            >
+              <v-col cols="lg-8 md-8">
+                <router-view />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
       </v-container>
-    </v-content>
+    </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
-// import NavDrawer from './components/nav'
-// import helloWorld from '@/components/HelloWorld';
-import Artice from "@/components/Article";
+import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
+import Login from "@/components/Login.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
-    Artice
-  },
-  computed: {
-    theme() {
-      return this.$vuetify.theme.dark ? "dark" : "light";
-    }
+    JoinNewsLetter,
+    Footer,
+    Login
   },
   data: () => ({
+    joinNewLetterDialog: false,
+    LoginDialog: false,
     drawer: false,
     items: [
       { icon: "mdi-home", text: "ראשי" },
       {
-        icon: "mdi-home",
+        icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
         text: "סידור שולחנות",
         model: false,
         children: [{ icon: "mdi-party-popper", text: "ימי הולדת" }]
-      },
-      {
-        icon: "mdi-dots-horizontal-circle-outline",
-        "icon-alt": "mdi-chevron-down",
-        text: "עוד",
-        model: false,
-        children: [
-          { text: "Import" },
-          { text: "Export" },
-          { text: "Print" },
-          { text: "Undo changes" },
-          { text: "Other contacts" }
-        ]
       }
     ]
-  })
+  }),
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? "dark" : "light";
+    }
+  }
 };
 </script>
 
-
-<style scoped>
-</style>
+<style scoped></style>
