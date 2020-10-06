@@ -14,7 +14,7 @@
 
 <script>
 import Article from "@/components/Article";
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/firebaseAPI";
 export default {
   name: "Home",
   components: {
