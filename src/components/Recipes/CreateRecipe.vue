@@ -57,7 +57,7 @@
                 >
                 </v-text-field>
                 <v-row align="center">
-                  <v-col sm="4">
+                  <v-col sm="11">
                     <v-text-field
                       v-model="newIgredient"
                       placeholder="מצרך"
@@ -80,12 +80,19 @@
                             v-for="(item,
                             index) in NewIngredientsItem.subIgredients"
                           >
-                            <v-list-item :key="item + index" class="mr-0 pr-0">
+                            <v-list-item :key="index" class="mr-0 pr-0">
                               <v-list-item-content>
-                                <v-list-item-title
-                                  >{{ index + 1 }}.
-                                  {{ item }}</v-list-item-title
-                                >
+                                <v-list-item-title>
+                                  <v-edit-dialog @click.native.stop>
+                                    {{ item }}
+                                    <v-text-field
+                                      slot="input"
+                                      v-model="
+                                        NewIngredientsItem.subIgredients[index]
+                                      "
+                                    ></v-text-field>
+                                  </v-edit-dialog>
+                                </v-list-item-title>
                               </v-list-item-content>
                               <v-list-item-action>
                                 <v-btn icon @click="removeIgredient(index)">
@@ -94,6 +101,17 @@
                                   </v-icon>
                                 </v-btn>
                               </v-list-item-action>
+                              <!-- <v-list-item-action>
+                                <v-dialog>
+                                  <template v-slot:activator="{ on, attrs }">
+                                    <v-btn icon v-bind="attrs" v-on="on">
+                                      <v-icon small>
+                                        mdi-pencil
+                                      </v-icon>
+                                    </v-btn>
+                                  </template>
+                                </v-dialog>
+                              </v-list-item-action> -->
                             </v-list-item>
                             <v-divider
                               v-if="
@@ -124,7 +142,7 @@
               מצרכים
             </v-card-title>
             <template v-for="(igredient, i) in article.igredients">
-              <v-card-text :key="igredient + i" class="mb-0 pb-0">
+              <v-card-text :key="igredient + i" class="mb-0 pb-0 text-right">
                 <v-subheader>{{ igredient.title }}</v-subheader>
                 <v-divider></v-divider>
                 <v-card-text class="ma-0 pa-0">
@@ -132,9 +150,7 @@
                     <v-col
                       v-for="(subIgredient, k) in igredient.subIgredients"
                       :key="subIgredient + k"
-                      cols="6"
-                      sm="12"
-                      lg="6"
+                      cols="12"
                     >
                       <v-list-item>
                         <v-list-item-subtitle>
@@ -167,7 +183,7 @@
                 >
                 </v-text-field>
                 <v-row align="center">
-                  <v-col sm="4">
+                  <v-col sm="11">
                     <v-text-field
                       v-model="newStep"
                       placeholder="צעד"
@@ -189,15 +205,19 @@
                           <template
                             v-for="(item, index) in newPreperationItem.steps"
                           >
-                            <v-list-item
-                              :key="item.text + index"
-                              class="mr-0 pr-0"
-                            >
+                            <v-list-item :key="index" class="mr-0 pr-0">
                               <v-list-item-content>
-                                <v-list-item-title
-                                  >{{ index + 1 }}.
-                                  {{ item.text }}</v-list-item-title
-                                >
+                                <v-list-item-title>
+                                  <v-edit-dialog @click.native.stop>
+                                    {{ item.text }}
+                                    <v-text-field
+                                      slot="input"
+                                      v-model="
+                                        newPreperationItem.steps[index].text
+                                      "
+                                    ></v-text-field>
+                                  </v-edit-dialog>
+                                </v-list-item-title>
                               </v-list-item-content>
                               <v-list-item-action>
                                 <v-btn
@@ -231,7 +251,7 @@
         </v-col>
         <v-col cols="12"> </v-col>
         <v-col cols="12">
-          <v-card class="ma-0">
+          <v-card flat tile class="ma-0">
             <v-card-title>
               הוראות הכנה
             </v-card-title>
