@@ -21,15 +21,17 @@
       </v-btn>
       <v-dialog v-model="LoginDialog" max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn v-if="!user.loggedIn" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
-        <Login />
+        <Login @userLoggedIn="LoginDialog = false" />
       </v-dialog>
-      <v-btn text @click="$router.push('/create-recipe')">
+      <v-btn v-if="user.loggedIn" text @click="$router.push('/create-recipe')">
         יצירת מתכון
       </v-btn>
+      <v-divider v-if="user.loggedIn" vertical inset></v-divider>
+      <v-btn v-if="user.loggedIn" text @click="logOut"> התנתק </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -180,6 +182,8 @@
 import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
 import Login from "@/components/Login.vue";
 import Footer from "@/components/Footer.vue";
+import { auth } from "@/firebase/firebaseAPI";
+import { mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
@@ -205,6 +209,17 @@ export default {
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
+    },
+    // map `this.user` to `this.$store.getters.user`
+    ...mapGetters({
+      user: "user"
+    })
+  },
+  methods: {
+    async logOut() {
+      await auth.signOut();
+      this.$router.push("/");
+      this.$forceUpdate();
     }
   }
 };
