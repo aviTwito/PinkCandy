@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="headline">Add Ingredients</span>
+      <span class="headline">הוסף מצרכים</span>
     </v-card-title>
     <v-card-text>
       <v-text-field v-model="newIngredientsItem.title" placeholder="כותרת">
@@ -61,8 +61,15 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="AddIngredients">
-        Save
+      <v-btn
+        :disabled="
+          newIngredientsItem.subIgredients.length < 1 ||
+            newIngredientsItem.title == ''
+        "
+        color="primary"
+        @click="AddIngredients"
+      >
+        הוסף
       </v-btn>
     </v-card-actions>
   </v-card>
