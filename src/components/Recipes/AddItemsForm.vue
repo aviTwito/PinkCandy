@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="headline">הוספת מצרכים</span>
+      <span class="headline">Add Ingredients</span>
     </v-card-title>
     <v-card-text>
       <v-text-field v-model="newIngredientsItem.title" placeholder="כותרת">
@@ -10,7 +10,7 @@
         <v-col sm="11">
           <v-text-field
             v-model="newIgredient"
-            placeholder="מצרך"
+            placeholder="New Igredient"
             @keyup.enter="addNewIgredient"
           >
           </v-text-field>
@@ -62,7 +62,7 @@
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" @click="AddIngredients">
-        הוסף
+        Save
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -75,15 +75,8 @@ export default {
       type: Object,
       default() {
         return {
-          title: "למלית",
-          subIgredients: [
-            "מלית 1",
-            "מלית 2",
-            "מלית 3",
-            "מלית 4",
-            "מלית 5",
-            "מלית 6"
-          ]
+          title: "",
+          subIgredients: []
         };
       }
     }
@@ -94,8 +87,14 @@ export default {
   methods: {
     addNewIgredient() {
       this.newIngredientsItem.subIgredients.push(this.newIgredient);
+      this.newIgredient = "";
     },
-    AddIngredients() {}
+    AddIngredients() {
+      this.$emit("addIngredient", this.newIngredientsItem);
+    },
+    removeIgredient(index) {
+      this.newIngredientsItem.subIgredients.splice(index, 1);
+    }
   }
 };
 </script>

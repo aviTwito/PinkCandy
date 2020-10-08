@@ -50,7 +50,10 @@
                       הוספת מצרכים
                     </v-btn>
                   </template>
-                  <AddItemsForm />
+                  <AddItemsForm
+                    @addIngredient="SaveNewIgredient"
+                    :newIngredientsItem="editedIgredient"
+                  />
                 </v-dialog>
               </v-col>
               <v-col cols="12" sm="12">
@@ -72,7 +75,7 @@
                         </v-col>
                         <v-col cols="2">
                           <v-card-actions>
-                            <v-btn icon>
+                            <v-btn icon @click="editIngredients(igredient)">
                               <v-icon>
                                 mdi-pencil
                               </v-icon>
@@ -249,62 +252,18 @@ export default {
       subHeader: "",
       description: "",
 
-      igredients: [
-        {
-          title: "למלית",
-          subIgredients: [
-            "מלית 1",
-            "מלית 2",
-            "מלית 3",
-            "מלית 4",
-            "מלית 5",
-            "מלית 6"
-          ]
-        },
-        {
-          title: "לתחתית",
-          subIgredients: [
-            "תחתית 1",
-            "תחתית 2",
-            "תחתית 3",
-            "תחתית 4",
-            "תחתית 5",
-            "תחתית 6"
-          ]
-        }
-      ],
-      preperation: [
-        {
-          title: "הכנת המלית",
-          steps: [
-            {
-              text:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
-            },
-            {
-              text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed malesuada lectus.
-                Donec ultrices ipsum no"`
-            },
-            {
-              text:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis el"
-            },
-            {
-              text:
-                "`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, feli",
-              img: require("@/assets/test.jpg")
-            },
-            {
-              text:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
-            },
-            {
-              text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, qu"`
-            }
-          ]
-        }
-      ]
+      igredients: [],
+      preperation: []
     },
+    editedIgredient: {
+      title: "",
+      subIgredients: []
+    },
+    defaultItem: {
+      title: "",
+      subIgredients: []
+    },
+    editedIndex: -1,
     NewIngredientsItem: {
       title: "",
       subIgredients: []
@@ -326,6 +285,36 @@ export default {
     imageData: null
   }),
   methods: {
+    editIngredients(item) {
+      this.editedIndex = this.article.igredients.indexOf(item);
+      this.editedIgredient = Object.assign({}, item);
+      this.AddIgredientsDialog = true;
+    },
+    SaveNewIgredient(newItem) {
+      if (this.editedIndex > -1) {
+        this.editedIgredient = Object.assign({}, newItem);
+        Object.assign(
+          this.article.igredients[this.editedIndex],
+          this.editedIgredient
+        );
+      } else {
+        this.article.igredients.push(this.editedIgredient);
+      }
+      this.AddIgredientsDialog = false;
+      this.editedIgredient = {
+        title: "",
+        subIgredients: []
+      };
+      this.editedIndex = -1;
+      // this.$nextTick(() => {
+      //   this.editedIgredient = {
+      //     title: "",
+      //     subIgredients: []
+      //   };
+      //   this.editedIndex = -1;
+      // });
+    },
+
     AddIngredients() {
       this.article.igredients.push(this.NewIngredientsItem);
       this.NewIngredientsItem = {
