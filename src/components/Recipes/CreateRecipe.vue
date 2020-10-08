@@ -39,69 +39,78 @@
             placeholder="תיאור"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="12">
-          <v-dialog v-model="AddIgredientsDialog" max-width="800px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="secondary" dark v-bind="attrs" v-on="on">
-                הוספת מצרכים
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">הוספת מצרכים</span>
-              </v-card-title>
-              <v-card-text>
-                <v-text-field
-                  v-model="NewIngredientsItem.title"
-                  placeholder="כותרת"
-                >
-                </v-text-field>
-                <v-row align="center">
-                  <v-col sm="11">
-                    <v-text-field
-                      v-model="newIgredient"
-                      placeholder="מצרך"
-                      @keyup.enter="addNewIgredient"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col sm="1">
-                    <v-btn icon @click="addNewIgredient">
-                      <v-icon>
-                        mdi-plus
-                      </v-icon>
+        <v-expansion-panels accordion focusable>
+          <v-expansion-panel>
+            <v-expansion-panel-header>מצרכים</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-col cols="12" sm="12">
+                <v-dialog v-model="AddIgredientsDialog" max-width="800px">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="secondary" dark v-bind="attrs" v-on="on">
+                      הוספת מצרכים
                     </v-btn>
-                  </v-col>
-                  <v-col class="mt-0 pt-0" cols="12">
-                    <v-row no-gutters>
-                      <v-col cols="12">
-                        <v-card flat tile>
-                          <template
-                            v-for="(item,
-                            index) in NewIngredientsItem.subIgredients"
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">הוספת מצרכים</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-text-field
+                        v-model="NewIngredientsItem.title"
+                        placeholder="כותרת"
+                      >
+                      </v-text-field>
+                      <v-row align="center">
+                        <v-col sm="11">
+                          <v-text-field
+                            v-model="newIgredient"
+                            placeholder="מצרך"
+                            @keyup.enter="addNewIgredient"
                           >
-                            <v-list-item :key="index" class="mr-0 pr-0">
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <v-edit-dialog @click.native.stop>
-                                    {{ item }}
-                                    <v-text-field
-                                      slot="input"
-                                      v-model="
-                                        NewIngredientsItem.subIgredients[index]
-                                      "
-                                    ></v-text-field>
-                                  </v-edit-dialog>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                              <v-list-item-action>
-                                <v-btn icon @click="removeIgredient(index)">
-                                  <v-icon small>
-                                    mdi-delete
-                                  </v-icon>
-                                </v-btn>
-                              </v-list-item-action>
-                              <!-- <v-list-item-action>
+                          </v-text-field>
+                        </v-col>
+                        <v-col sm="1">
+                          <v-btn icon @click="addNewIgredient">
+                            <v-icon>
+                              mdi-plus
+                            </v-icon>
+                          </v-btn>
+                        </v-col>
+                        <v-col class="mt-0 pt-0" cols="12">
+                          <v-row no-gutters>
+                            <v-col cols="12">
+                              <v-card flat tile>
+                                <template
+                                  v-for="(item,
+                                  index) in NewIngredientsItem.subIgredients"
+                                >
+                                  <v-list-item :key="index" class="mr-0 pr-0">
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <v-edit-dialog @click.native.stop>
+                                          {{ item }}
+                                          <v-text-field
+                                            slot="input"
+                                            v-model="
+                                              NewIngredientsItem.subIgredients[
+                                                index
+                                              ]
+                                            "
+                                          ></v-text-field>
+                                        </v-edit-dialog>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                    <v-list-item-action>
+                                      <v-btn
+                                        icon
+                                        @click="removeIgredient(index)"
+                                      >
+                                        <v-icon small>
+                                          mdi-delete
+                                        </v-icon>
+                                      </v-btn>
+                                    </v-list-item-action>
+                                    <!-- <v-list-item-action>
                                 <v-dialog>
                                   <template v-slot:activator="{ on, attrs }">
                                     <v-btn icon v-bind="attrs" v-on="on">
@@ -112,164 +121,183 @@
                                   </template>
                                 </v-dialog>
                               </v-list-item-action> -->
-                            </v-list-item>
-                            <v-divider
-                              v-if="
-                                index + 1 <
-                                  NewIngredientsItem.subIgredients.length
-                              "
-                              :key="index"
-                            ></v-divider>
-                          </template>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="primary" @click="AddIngredients">
-                  הוסף
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-col>
-
-        <v-col cols="12" sm="12">
-          <v-card flat tile>
-            <v-card-title class="text-right">
-              מצרכים
-            </v-card-title>
-            <template v-for="(igredient, i) in article.igredients">
-              <v-card-text :key="igredient + i" class="mb-0 pb-0 text-right">
-                <v-subheader>{{ igredient.title }}</v-subheader>
-                <v-divider></v-divider>
-                <v-card-text class="ma-0 pa-0">
-                  <v-row :key="i" dense>
-                    <v-col
-                      v-for="(subIgredient, k) in igredient.subIgredients"
-                      :key="subIgredient + k"
-                      cols="12"
+                                  </v-list-item>
+                                  <v-divider
+                                    v-if="
+                                      index + 1 <
+                                        NewIngredientsItem.subIgredients.length
+                                    "
+                                    :key="index"
+                                  ></v-divider>
+                                </template>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn color="primary" @click="AddIngredients">
+                        הוסף
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <v-col cols="12" sm="12">
+                <v-card flat tile>
+                  <template v-for="(igredient, i) in article.igredients">
+                    <v-card-text
+                      :key="igredient + i"
+                      class="mb-0 pb-0 text-right"
                     >
-                      <v-list-item>
-                        <v-list-item-subtitle>
-                          {{ subIgredient }}
-                        </v-list-item-subtitle>
-                      </v-list-item>
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card-text>
-            </template>
-          </v-card>
-        </v-col>
-        <v-col cols="12"> </v-col>
-        <v-col cols="12" sm="12">
-          <v-dialog v-model="AddnewPreperationDialog" max-width="800px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="secondary" dark v-bind="attrs" v-on="on">
-                הוספת הוראות
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">הוספת הוראות</span>
-              </v-card-title>
-              <v-card-text>
-                <v-text-field
-                  v-model="newPreperationItem.title"
-                  placeholder="כותרת"
-                >
-                </v-text-field>
-                <v-row align="center">
-                  <v-col sm="11">
-                    <v-text-field
-                      v-model="newStep"
-                      placeholder="צעד"
-                      @keyup.enter="addNewStep"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col sm="1">
-                    <v-btn icon @click="addNewStep">
-                      <v-icon>
-                        mdi-plus
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                  <v-col class="mt-0 pt-0" cols="12">
-                    <v-row no-gutters>
-                      <v-col cols="12">
-                        <v-card flat tile>
-                          <template
-                            v-for="(item, index) in newPreperationItem.steps"
+                      <v-subheader
+                        class="text-right font-weight-bold text-subtitle-1"
+                        >{{ igredient.title }}</v-subheader
+                      >
+                      <v-divider></v-divider>
+                      <v-card-text class="ma-0 pa-0">
+                        <v-row :key="i" dense>
+                          <v-col
+                            v-for="(subIgredient, k) in igredient.subIgredients"
+                            :key="subIgredient + k"
+                            cols="12"
                           >
-                            <v-list-item :key="index" class="mr-0 pr-0">
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <v-edit-dialog @click.native.stop>
-                                    {{ item.text }}
-                                    <v-text-field
-                                      slot="input"
-                                      v-model="
-                                        newPreperationItem.steps[index].text
-                                      "
-                                    ></v-text-field>
-                                  </v-edit-dialog>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                              <v-list-item-action>
-                                <v-btn
-                                  icon
-                                  @click="removePreperationStep(index)"
-                                >
-                                  <v-icon small>
-                                    mdi-delete
-                                  </v-icon>
-                                </v-btn>
-                              </v-list-item-action>
+                            <v-list-item>
+                              <v-list-item-subtitle>
+                                {{ subIgredient }}
+                              </v-list-item-subtitle>
                             </v-list-item>
-                            <v-divider
-                              v-if="index + 1 < newPreperationItem.steps.length"
-                              :key="index"
-                            ></v-divider>
-                          </template>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="primary" @click="AddPreperations">
-                  הוסף
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-col>
-        <v-col cols="12"> </v-col>
-        <v-col cols="12">
-          <v-card flat tile class="ma-0">
-            <v-card-title>
-              הוראות הכנה
-            </v-card-title>
+                          </v-col>
+                        </v-row>
+                      </v-card-text>
+                    </v-card-text>
+                  </template>
+                </v-card>
+              </v-col>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              הוראות
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-col cols="12"> </v-col>
+              <v-col cols="12" sm="12">
+                <v-dialog v-model="AddnewPreperationDialog" max-width="800px">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="secondary" dark v-bind="attrs" v-on="on">
+                      הוספת הוראות
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">הוספת הוראות</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-text-field
+                        v-model="newPreperationItem.title"
+                        placeholder="כותרת"
+                      >
+                      </v-text-field>
+                      <v-row align="center">
+                        <v-col sm="11">
+                          <v-text-field
+                            v-model="newStep"
+                            placeholder="צעד"
+                            @keyup.enter="addNewStep"
+                          >
+                          </v-text-field>
+                        </v-col>
+                        <v-col sm="1">
+                          <v-btn icon @click="addNewStep">
+                            <v-icon>
+                              mdi-plus
+                            </v-icon>
+                          </v-btn>
+                        </v-col>
+                        <v-col class="mt-0 pt-0" cols="12">
+                          <v-row no-gutters>
+                            <v-col cols="12">
+                              <v-card flat tile>
+                                <template
+                                  v-for="(item,
+                                  index) in newPreperationItem.steps"
+                                >
+                                  <v-list-item :key="index" class="mr-0 pr-0">
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <v-edit-dialog @click.native.stop>
+                                          {{ item.text }}
+                                          <v-text-field
+                                            slot="input"
+                                            v-model="
+                                              newPreperationItem.steps[index]
+                                                .text
+                                            "
+                                          ></v-text-field>
+                                        </v-edit-dialog>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                    <v-list-item-action>
+                                      <v-btn
+                                        icon
+                                        @click="removePreperationStep(index)"
+                                      >
+                                        <v-icon small>
+                                          mdi-delete
+                                        </v-icon>
+                                      </v-btn>
+                                    </v-list-item-action>
+                                  </v-list-item>
+                                  <v-divider
+                                    v-if="
+                                      index + 1 <
+                                        newPreperationItem.steps.length
+                                    "
+                                    :key="index"
+                                  ></v-divider>
+                                </template>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn color="primary" @click="AddPreperations">
+                        הוסף
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <v-col cols="12"> </v-col>
+              <v-col cols="12">
+                <v-card flat tile class="ma-0">
+                  <v-card-text>
+                    <v-list>
+                      <div
+                        v-for="(item, index) in article.preperation"
+                        :key="index"
+                      >
+                        <v-list-item-title
+                          class="text-right font-weight-bold text-subtitle-1"
+                        >
+                          {{ item.title }}
+                        </v-list-item-title>
+                        <v-list-item v-for="(step, k) in item.steps" :key="k">
+                          {{ k + 1 }}. {{ step.text }}
+                        </v-list-item>
+                      </div>
+                    </v-list>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
 
-            <v-card-text>
-              <v-list>
-                <div v-for="(item, index) in article.preperation" :key="index">
-                  <v-list-item-title>
-                    {{ item.title }}
-                  </v-list-item-title>
-                  <v-list-item v-for="(step, k) in item.steps" :key="k">
-                    {{ index + 1 }}. {{ step.text }}
-                  </v-list-item>
-                </div>
-              </v-list>
-            </v-card-text>
-          </v-card>
-        </v-col>
         <v-col sm="12">
           <v-btn color="primary" @click="AddNewRecipe">
             שלח
@@ -351,6 +379,7 @@ export default {
             igredients: [],
             preperation: []
           };
+          this.$router.push("/");
         });
     },
     addNewIgredient() {
