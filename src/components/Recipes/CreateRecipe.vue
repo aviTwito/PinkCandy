@@ -110,17 +110,6 @@
                                         </v-icon>
                                       </v-btn>
                                     </v-list-item-action>
-                                    <!-- <v-list-item-action>
-                                <v-dialog>
-                                  <template v-slot:activator="{ on, attrs }">
-                                    <v-btn icon v-bind="attrs" v-on="on">
-                                      <v-icon small>
-                                        mdi-pencil
-                                      </v-icon>
-                                    </v-btn>
-                                  </template>
-                                </v-dialog>
-                              </v-list-item-action> -->
                                   </v-list-item>
                                   <v-divider
                                     v-if="
@@ -145,16 +134,33 @@
                 </v-dialog>
               </v-col>
               <v-col cols="12" sm="12">
-                <v-card flat tile>
-                  <template v-for="(igredient, i) in article.igredients">
-                    <v-card-text
-                      :key="igredient + i"
-                      class="mb-0 pb-0 text-right"
-                    >
-                      <v-subheader
-                        class="text-right font-weight-bold text-subtitle-1"
-                        >{{ igredient.title }}</v-subheader
-                      >
+                <v-card
+                  v-for="(igredient, i) in article.igredients"
+                  :key="igredient + i"
+                  flat
+                  tile
+                  elevation="1"
+                >
+                  <template>
+                    <v-card-text class="mb-0 pb-0 text-right">
+                      <v-row no-gutters>
+                        <v-col cols="10">
+                          <v-subheader
+                            class="text-right font-weight-bold text-subtitle-1"
+                            >{{ igredient.title }}</v-subheader
+                          >
+                        </v-col>
+                        <v-col cols="2">
+                          <v-card-actions>
+                            <v-btn icon>
+                              <v-icon>
+                                mdi-pencil
+                              </v-icon>
+                            </v-btn>
+                          </v-card-actions>
+                        </v-col>
+                      </v-row>
+
                       <v-divider></v-divider>
                       <v-card-text class="ma-0 pa-0">
                         <v-row :key="i" dense>
@@ -319,8 +325,61 @@ export default {
       subHeader: "",
       description: "",
 
-      igredients: [],
-      preperation: []
+      igredients: [
+        {
+          title: "למלית",
+          subIgredients: [
+            "מלית 1",
+            "מלית 2",
+            "מלית 3",
+            "מלית 4",
+            "מלית 5",
+            "מלית 6"
+          ]
+        },
+        {
+          title: "לתחתית",
+          subIgredients: [
+            "תחתית 1",
+            "תחתית 2",
+            "תחתית 3",
+            "תחתית 4",
+            "תחתית 5",
+            "תחתית 6"
+          ]
+        }
+      ],
+      preperation: [
+        {
+          title: "הכנת המלית",
+          steps: [
+            {
+              text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
+            },
+            {
+              text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, felis ac rutrum mollis, lectus sapien fringilla leo, in varius sapien dui eget elit. Curabitur at facilisis velit, eget elementum eros. Sed nec nulla faucibus, cursus ex non, ullamcorper elit. Nulla ultrices lobortis hendrerit. Aenean ultrices est at neque lacinia, at viverra risus porttitor. Donec sed malesuada lectus.
+                Donec ultrices ipsum no"`
+            },
+            {
+              text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis el"
+            },
+            {
+              text:
+                "`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis commodo risus dapibus at. Sed auctor, feli",
+              img: require("@/assets/test.jpg")
+            },
+            {
+              text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, quis c"
+            },
+            {
+              text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis elit magna, qu"`
+            }
+          ]
+        }
+      ]
     },
     NewIngredientsItem: {
       title: "",
