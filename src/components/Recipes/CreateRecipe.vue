@@ -259,15 +259,8 @@ export default {
       title: "",
       subIgredients: []
     },
-    defaultItem: {
-      title: "",
-      subIgredients: []
-    },
+
     editedIndex: -1,
-    NewIngredientsItem: {
-      title: "",
-      subIgredients: []
-    },
     newIgredient: "",
     AddIgredientsDialog: false,
     newPreperationItem: {
@@ -306,23 +299,8 @@ export default {
         subIgredients: []
       };
       this.editedIndex = -1;
-      // this.$nextTick(() => {
-      //   this.editedIgredient = {
-      //     title: "",
-      //     subIgredients: []
-      //   };
-      //   this.editedIndex = -1;
-      // });
     },
 
-    AddIngredients() {
-      this.article.igredients.push(this.NewIngredientsItem);
-      this.NewIngredientsItem = {
-        title: "",
-        subIgredients: []
-      };
-      this.AddIgredientsDialog = false;
-    },
     AddPreperations() {
       this.article.preperation.push(this.newPreperationItem);
       this.newPreperationItem = {
@@ -330,9 +308,6 @@ export default {
         steps: []
       };
       this.AddnewPreperationDialog = false;
-    },
-    removeIgredient(index) {
-      this.NewIngredientsItem.subIgredients.splice(index, 1);
     },
     removePreperationStep(index) {
       this.newPreperationItem.stpes.splice(index, 1);
@@ -353,10 +328,6 @@ export default {
           };
           this.$router.push("/");
         });
-    },
-    addNewIgredient() {
-      this.NewIngredientsItem.subIgredients.push(this.newIgredient);
-      this.newIgredient = "";
     },
     addNewPreperation() {
       this.newPreperationItem.push(this.newPreperationStep);
