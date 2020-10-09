@@ -64,7 +64,13 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="AddPreperations">
+      <v-btn
+        :disabled="
+          newPreperationItem.steps.length < 1 || newPreperationItem.title == ''
+        "
+        color="primary"
+        @click="AddPreperations"
+      >
         {{ buttonText }}
       </v-btn>
       <v-spacer></v-spacer>
