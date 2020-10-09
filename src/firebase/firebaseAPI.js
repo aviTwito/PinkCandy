@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
+import "firebase/analytics";
+import store from "@/store";
 
 var firebaseConfig = {
   apiKey: "AIzaSyDNZkOv8BmZu0qLnDs8KszicDlUDbb0rH0",
@@ -16,11 +18,15 @@ var firebaseConfig = {
 
 // Get a Firestore instance
 firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 export const db = firebase.firestore();
 export const auth = firebase.auth();
 export const firestorage = firebase.storage().ref();
 // export const auth = firebase.initializeApp(firebaseConfig).auth();
-
+firebase.analytics();
 // Export types that exists in Firestore
 // This is not always necessary, but it's used in other examples
 const { Timestamp, GeoPoint } = firebase.firestore;

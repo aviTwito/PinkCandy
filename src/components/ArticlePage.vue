@@ -4,7 +4,7 @@
       <v-img
         contain
         class="white--text ma-0 pa-0"
-        max-height="400"
+        max-height="300"
         :src="selectedArticle.img"
       />
       <v-card
@@ -67,7 +67,7 @@
           <v-card-text class="text-right mb-1 pb-0 mt-0 pt-0">
             {{ item.title }}
           </v-card-text>
-          <v-card-text class="mr-10 pa-0">
+          <v-card-text class="mr-8 pa-0 ">
             <ol>
               <li
                 v-for="(subItem, j) in item.steps"

@@ -7,7 +7,7 @@
     <v-card-actions>
       <v-btn color="primary" @click="Login">התחבר</v-btn>
       <!-- <v-btn color="primary" @click="SignUp">הירשם</v-btn> -->
-      <v-btn color="primary" @click="SignOut">התנתק</v-btn>
+      <!-- <v-btn color="primary" @click="SignOut">התנתק</v-btn> -->
     </v-card-actions>
   </v-card>
 </template>
@@ -36,13 +36,14 @@ export default {
     //       console.log(err);
     //     });
     // },
-    async SignOut() {
-      auth.signOut();
-    },
+
     async Login() {
       await auth
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {})
+        .then(() => {
+          this.showDialog = false;
+          this.$emit("userLoggedIn");
+        })
         .catch(() => {
           this.email = "";
           this.password = "";

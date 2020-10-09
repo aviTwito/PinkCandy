@@ -9,7 +9,8 @@
       @click="NavigateToArticle(article.id)"
     >
       <v-img
-        :contain='$vuetify.breakpoint.lgAndUp? true:false'
+      height="250"
+        
         :src="article.img"
         :gradient="hover ? 'to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)' : ''"
       />
@@ -42,8 +43,11 @@
         gradient="to top right, rgba(100,115,201,.20), rgba(25,32,72,.4)"
         @click="NavigateToArticle(article.id)"
       >
-      <v-card-title>
-        {{ article.headline }}
+      <v-card-title class="subtitle-1">
+       
+          {{ article.headline }}
+        
+        
       </v-card-title>
       </v-img>
     </v-card>
@@ -94,6 +98,12 @@ export default {
 </script>
 
 <style scoped>
+
+
+.wrap-text {
+  -webkit-line-clamp: unset !important;
+}
+
 img {
   height:100vh;
 }
