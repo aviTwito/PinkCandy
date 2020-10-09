@@ -62,9 +62,8 @@
                   :key="igredient + i"
                   flat
                   tile
-                  elevation="1"
                 >
-                  <template>
+                  <template class="mb-10">
                     <v-card-text class="mb-0 pb-0 text-right">
                       <v-row no-gutters>
                         <v-col cols="10">
@@ -119,86 +118,9 @@
                       הוספת הוראות
                     </v-btn>
                   </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">הוספת הוראות</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-text-field
-                        v-model="newPreperationItem.title"
-                        placeholder="כותרת"
-                      >
-                      </v-text-field>
-                      <v-row align="center">
-                        <v-col sm="11">
-                          <v-text-field
-                            v-model="newStep"
-                            placeholder="צעד"
-                            @keyup.enter="addNewStep"
-                          >
-                          </v-text-field>
-                        </v-col>
-                        <v-col sm="1">
-                          <v-btn icon @click="addNewStep">
-                            <v-icon>
-                              mdi-plus
-                            </v-icon>
-                          </v-btn>
-                        </v-col>
-                        <v-col class="mt-0 pt-0" cols="12">
-                          <v-row no-gutters>
-                            <v-col cols="12">
-                              <v-card flat tile>
-                                <template
-                                  v-for="(item,
-                                  index) in newPreperationItem.steps"
-                                >
-                                  <v-list-item :key="index" class="mr-0 pr-0">
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <v-edit-dialog @click.native.stop>
-                                          {{ item.text }}
-                                          <v-text-field
-                                            slot="input"
-                                            v-model="
-                                              newPreperationItem.steps[index]
-                                                .text
-                                            "
-                                          ></v-text-field>
-                                        </v-edit-dialog>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                    <v-list-item-action>
-                                      <v-btn
-                                        icon
-                                        @click="removePreperationStep(index)"
-                                      >
-                                        <v-icon small>
-                                          mdi-delete
-                                        </v-icon>
-                                      </v-btn>
-                                    </v-list-item-action>
-                                  </v-list-item>
-                                  <v-divider
-                                    v-if="
-                                      index + 1 <
-                                        newPreperationItem.steps.length
-                                    "
-                                    :key="index"
-                                  ></v-divider>
-                                </template>
-                              </v-card>
-                            </v-col>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn color="primary" @click="AddPreperations">
-                        הוסף
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
+                  <AddPreperationForm
+                    :newPreperationItem="newPreperationItem"
+                  />
                 </v-dialog>
               </v-col>
               <v-col cols="12"> </v-col>
@@ -240,9 +162,11 @@
 <script>
 import { firestorage, db } from "@/firebase/firebaseAPI";
 import AddItemsForm from "./AddItemsForm";
+import AddPreperationForm from "./AddPreperationForm";
 export default {
   components: {
-    AddItemsForm
+    AddItemsForm,
+    AddPreperationForm
   },
   data: () => ({
     article: {
@@ -260,7 +184,7 @@ export default {
       subIgredients: []
     },
 
-    editedIndex: -1,
+    ingridientEditedIndex: -1,
     newIgredient: "",
     AddIgredientsDialog: false,
     newPreperationItem: {
@@ -279,15 +203,15 @@ export default {
   }),
   methods: {
     editIngredients(item) {
-      this.editedIndex = this.article.igredients.indexOf(item);
+      this.ingridientEditedIndex = this.article.igredients.indexOf(item);
       this.editedIgredient = Object.assign({}, item);
       this.AddIgredientsDialog = true;
     },
     SaveNewIgredient(newItem) {
-      if (this.editedIndex > -1) {
+      if (this.ingridientEditedIndex > -1) {
         this.editedIgredient = Object.assign({}, newItem);
         Object.assign(
-          this.article.igredients[this.editedIndex],
+          this.article.igredients[this.ingridientEditedIndex],
           this.editedIgredient
         );
       } else {
@@ -298,7 +222,7 @@ export default {
         title: "",
         subIgredients: []
       };
-      this.editedIndex = -1;
+      this.ingridientEditedIndex = -1;
     },
 
     AddPreperations() {
@@ -378,3 +302,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-expansion-panel-content >>> .v-expansion-panel-content__wrap {
+  padding: 0;
+  margin: 0;
+}
+</style>
