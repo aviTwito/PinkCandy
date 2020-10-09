@@ -44,13 +44,18 @@
             <v-expansion-panel-header>מצרכים</v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-col cols="12" sm="12">
-                <v-dialog v-model="AddIgredientsDialog" max-width="800px">
+                <v-dialog
+                  persistent
+                  v-model="AddIgredientsDialog"
+                  max-width="800px"
+                >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn color="secondary" dark v-bind="attrs" v-on="on">
                       הוספת מצרכים
                     </v-btn>
                   </template>
                   <AddItemsForm
+                    @cancel-add-ingridient="cancelAddIngredient"
                     @addIngredient="SaveNewIgredient"
                     :newIngredientsItem="editedIgredient"
                   />
@@ -234,6 +239,14 @@ export default {
       } else {
         this.article.igredients.push(this.editedIgredient);
       }
+      this.AddIgredientsDialog = false;
+      this.editedIgredient = {
+        title: "",
+        subIgredients: []
+      };
+      this.ingridientEditedIndex = -1;
+    },
+    cancelAddIngredient() {
       this.AddIgredientsDialog = false;
       this.editedIgredient = {
         title: "",
