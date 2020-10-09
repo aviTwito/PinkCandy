@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="headline">הוספת הוראות</span>
+      <span class="headline">{{ formTitle }}</span>
     </v-card-title>
     <v-card-text>
       <v-text-field v-model="newPreperationItem.title" placeholder="כותרת">
@@ -65,7 +65,11 @@
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" @click="AddPreperations">
-        הוסף
+        {{ buttonText }}
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="error" @click="$emit('cancel-add-preperation')">
+        ביטול
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -83,6 +87,10 @@ export default {
           steps: []
         };
       }
+    },
+    editMode: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -93,6 +101,14 @@ export default {
         img: ""
       }
     };
+  },
+  computed: {
+    formTitle() {
+      return this.editMode ? "עריכה" : "הוספת מצרכים";
+    },
+    buttonText() {
+      return this.editMode ? "שמור" : "הוסף";
+    }
   },
   methods: {
     addNewStep() {

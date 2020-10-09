@@ -111,7 +111,11 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-col cols="12">
-                <v-dialog v-model="AddnewPreperationDialog" max-width="800px">
+                <v-dialog
+                  v-model="AddnewPreperationDialog"
+                  max-width="800px"
+                  persistent
+                >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn color="secondary" dark v-bind="attrs" v-on="on">
                       הוספת הוראות
@@ -119,7 +123,9 @@
                   </template>
                   <AddPreperationForm
                     @newPreperationAdded="saveNewPReperation"
+                    @cancel-add-preperation="cancelNewPreperation"
                     :newPreperationItem="editedPreperationiTem"
+                    :editMode="preperationEditedIndex > -1 ? true : false"
                   />
                 </v-dialog>
               </v-col>
@@ -250,6 +256,14 @@ export default {
       } else {
         this.article.preperation.push(this.editedPreperationiTem);
       }
+      this.AddnewPreperationDialog = false;
+      this.editedPreperationiTem = {
+        title: "",
+        steps: []
+      };
+      this.preperationEditedIndex = -1;
+    },
+    cancelNewPreperation() {
       this.AddnewPreperationDialog = false;
       this.editedPreperationiTem = {
         title: "",
