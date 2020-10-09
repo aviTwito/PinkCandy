@@ -73,6 +73,10 @@
       >
         הוסף
       </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="error" @click="$emit('cancel-add-ingridient')">
+        ביטול
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
