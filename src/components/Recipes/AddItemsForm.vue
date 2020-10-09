@@ -7,7 +7,7 @@
       <v-text-field v-model="newIgredientItemToUse.title" placeholder="כותרת">
       </v-text-field>
       <v-row align="center">
-        <v-col sm="11">
+        <v-col cols="11">
           <v-text-field
             v-model="newIgredient"
             placeholder="מצרך"
@@ -15,7 +15,7 @@
           >
           </v-text-field>
         </v-col>
-        <v-col sm="1">
+        <v-col cols="1">
           <v-btn icon @click="addNewIgredient">
             <v-icon>
               mdi-plus

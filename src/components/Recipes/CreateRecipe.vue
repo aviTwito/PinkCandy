@@ -110,8 +110,7 @@
               הוראות
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-col cols="12"> </v-col>
-              <v-col cols="12" sm="12">
+              <v-col cols="12">
                 <v-dialog v-model="AddnewPreperationDialog" max-width="800px">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn color="secondary" dark v-bind="attrs" v-on="on">
@@ -119,30 +118,47 @@
                     </v-btn>
                   </template>
                   <AddPreperationForm
-                    :newPreperationItem="newPreperationItem"
+                    @newPreperationAdded="saveNewPReperation"
+                    :newPreperationItem="editedPreperationiTem"
                   />
                 </v-dialog>
               </v-col>
-              <v-col cols="12"> </v-col>
+
               <v-col cols="12">
-                <v-card flat tile class="ma-0">
-                  <v-card-text>
-                    <v-list>
-                      <div
-                        v-for="(item, index) in article.preperation"
-                        :key="index"
-                      >
-                        <v-list-item-title
-                          class="text-right font-weight-bold text-subtitle-1"
-                        >
-                          {{ item.title }}
-                        </v-list-item-title>
-                        <v-list-item v-for="(step, k) in item.steps" :key="k">
-                          {{ k + 1 }}. {{ step.text }}
-                        </v-list-item>
-                      </div>
-                    </v-list>
-                  </v-card-text>
+                <v-card
+                  v-for="(item, index) in article.preperation"
+                  :key="index"
+                  flat
+                  tile
+                  class="ma-0"
+                >
+                  <template class="mb-10">
+                    <v-card-text class="mb-0 pb-0 text-right">
+                      <v-row no gutters>
+                        <v-col cols="10">
+                          <v-subheader
+                            class="text-right font-weight-bold text-subtitle-1"
+                          >
+                            {{ item.title }}
+                          </v-subheader>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-card-actions>
+                            <v-btn icon @click="editPreperation(item)">
+                              <v-icon>
+                                mdi-pencil
+                              </v-icon>
+                            </v-btn>
+                          </v-card-actions>
+                        </v-col>
+                      </v-row>
+                      <v-divider></v-divider>
+                      <v-list-item v-for="(step, k) in item.steps" :key="k">
+                        {{ k + 1 }}. {{ step.text }}
+                      </v-list-item>
+                      <v-list> </v-list>
+                    </v-card-text>
+                  </template>
                 </v-card>
               </v-col>
             </v-expansion-panel-content>
@@ -183,19 +199,14 @@ export default {
       title: "",
       subIgredients: []
     },
-
     ingridientEditedIndex: -1,
     newIgredient: "",
     AddIgredientsDialog: false,
-    newPreperationItem: {
+    editedPreperationiTem: {
       title: "",
       steps: []
     },
-    newStep: "",
-    newPreperationStep: {
-      text: "",
-      img: ""
-    },
+    preperationEditedIndex: -1,
     AddnewPreperationDialog: false,
     caption: "",
     img1: "",
@@ -224,14 +235,27 @@ export default {
       };
       this.ingridientEditedIndex = -1;
     },
-
-    AddPreperations() {
-      this.article.preperation.push(this.newPreperationItem);
-      this.newPreperationItem = {
+    editPreperation(item) {
+      this.preperationEditedIndex = this.article.preperation.indexOf(item);
+      this.editedPreperationiTem = Object.assign({}, item);
+      this.AddnewPreperationDialog = true;
+    },
+    saveNewPReperation(preperationItem) {
+      this.editedPreperationiTem = Object.assign({}, preperationItem);
+      if (this.preperationEditedIndex > -1) {
+        Object.assign(
+          this.article.preperation[this.preperationEditedIndex],
+          this.editedPreperationiTem
+        );
+      } else {
+        this.article.preperation.push(this.editedPreperationiTem);
+      }
+      this.AddnewPreperationDialog = false;
+      this.editedPreperationiTem = {
         title: "",
         steps: []
       };
-      this.AddnewPreperationDialog = false;
+      this.preperationEditedIndex = -1;
     },
     removePreperationStep(index) {
       this.newPreperationItem.stpes.splice(index, 1);

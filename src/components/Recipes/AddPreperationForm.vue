@@ -6,8 +6,8 @@
     <v-card-text>
       <v-text-field v-model="newPreperationItem.title" placeholder="כותרת">
       </v-text-field>
-      <v-row justify="center" align="center" no-gutters>
-        <v-col cols="10">
+      <v-row align="center" no-gutters>
+        <v-col cols="11">
           <v-text-field
             v-model="newStep"
             placeholder="צעד"
@@ -54,7 +54,7 @@
                   </v-list-item>
                   <v-divider
                     v-if="index + 1 < newPreperationItem.steps.length"
-                    :key="index"
+                    :key="item + index"
                   ></v-divider>
                 </template>
               </v-card>
