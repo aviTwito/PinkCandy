@@ -150,14 +150,6 @@
           `text-sm-center`
         ]"
       >
-        <!-- <v-layout column align-center>
-          <v-flex>
-            
-          </v-flex>
-          <v-flex>
-            <ArticePage />
-          </v-flex>
-        </v-layout> -->
         <v-row class="d-flex" justify-lg="space-between" no-gutters>
           <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
             <JoinNewsLetter />
