@@ -4,13 +4,13 @@
       <span class="headline">הוסף מצרכים</span>
     </v-card-title>
     <v-card-text>
-      <v-text-field v-model="newIngredientsItem.title" placeholder="כותרת">
+      <v-text-field v-model="newIgredientItemToUse.title" placeholder="כותרת">
       </v-text-field>
       <v-row align="center">
         <v-col sm="11">
           <v-text-field
             v-model="newIgredient"
-            placeholder="New Igredient"
+            placeholder="מצרך"
             @keyup.enter="addNewIgredient"
           >
           </v-text-field>
@@ -27,7 +27,7 @@
             <v-col cols="12">
               <v-card flat tile>
                 <template
-                  v-for="(item, index) in newIngredientsItem.subIgredients"
+                  v-for="(item, index) in newIgredientItemToUse.subIgredients"
                 >
                   <v-list-item :key="index" class="mr-0 pr-0">
                     <v-list-item-content>
@@ -36,7 +36,7 @@
                           {{ item }}
                           <v-text-field
                             slot="input"
-                            v-model="newIngredientsItem.subIgredients[index]"
+                            v-model="newIgredientItemToUse.subIgredients[index]"
                           ></v-text-field>
                         </v-edit-dialog>
                       </v-list-item-title>
@@ -50,7 +50,9 @@
                     </v-list-item-action>
                   </v-list-item>
                   <v-divider
-                    v-if="index + 1 < newIngredientsItem.subIgredients.length"
+                    v-if="
+                      index + 1 < newIgredientItemToUse.subIgredients.length
+                    "
                     :key="item + index"
                   ></v-divider>
                 </template>
@@ -63,8 +65,8 @@
     <v-card-actions>
       <v-btn
         :disabled="
-          newIngredientsItem.subIgredients.length < 1 ||
-            newIngredientsItem.title == ''
+          newIgredientItemToUse.subIgredients.length < 1 ||
+            newIgredientItemToUse.title == ''
         "
         color="primary"
         @click="AddIngredients"
@@ -91,16 +93,24 @@ export default {
   data: () => ({
     newIgredient: ""
   }),
+  // beforeMount() {
+  //   this.newIgredientItemToUse = { ...this.newIngredientsItem };
+  // },
+  computed: {
+    newIgredientItemToUse() {
+      return this.newIngredientsItem;
+    }
+  },
   methods: {
     addNewIgredient() {
-      this.newIngredientsItem.subIgredients.push(this.newIgredient);
+      this.newIgredientItemToUse.subIgredients.push(this.newIgredient);
       this.newIgredient = "";
     },
     AddIngredients() {
-      this.$emit("addIngredient", this.newIngredientsItem);
+      this.$emit("addIngredient", this.newIgredientItemToUse);
     },
     removeIgredient(index) {
-      this.newIngredientsItem.subIgredients.splice(index, 1);
+      this.newIgredientItemToUse.subIgredients.splice(index, 1);
     }
   }
 };
