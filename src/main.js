@@ -6,6 +6,8 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { firestorePlugin } from "vuefire";
 
+import "./sass/index.sass";
+
 Vue.config.productionTip = false;
 
 Vue.use(firestorePlugin);
