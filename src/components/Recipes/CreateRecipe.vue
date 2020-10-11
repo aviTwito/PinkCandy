@@ -45,19 +45,19 @@
             <v-expansion-panel-content>
               <v-col cols="12" sm="12">
                 <v-dialog
-                  persistent
                   v-model="AddIgredientsDialog"
+                  persistent
                   max-width="800px"
                 >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-btn color="secondary" dark v-bind="attrs" v-on="on">
                       הוספת מצרכים
                     </v-btn>
                   </template>
                   <AddItemsForm
+                    :new-ingredients-item="editedIgredient"
                     @cancel-add-ingridient="cancelAddIngredient"
-                    @addIngredient="SaveNewIgredient"
-                    :newIngredientsItem="editedIgredient"
+                    @add-ingredient="SaveNewIgredient"
                   />
                 </v-dialog>
               </v-col>
@@ -121,16 +121,16 @@
                   max-width="800px"
                   persistent
                 >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-btn color="secondary" dark v-bind="attrs" v-on="on">
                       הוספת הוראות
                     </v-btn>
                   </template>
                   <AddPreperationForm
-                    @newPreperationAdded="saveNewPReperation"
+                    :new-preperation-item="editedPreperationiTem"
+                    :edit-mode="preperationEditedIndex > -1 ? true : false"
+                    @new-preperation-added="saveNewPReperation"
                     @cancel-add-preperation="cancelNewPreperation"
-                    :newPreperationItem="editedPreperationiTem"
-                    :editMode="preperationEditedIndex > -1 ? true : false"
                   />
                 </v-dialog>
               </v-col>

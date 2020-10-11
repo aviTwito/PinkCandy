@@ -20,12 +20,12 @@
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
       <v-dialog v-model="LoginDialog" max-width="600px">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn v-if="!user.loggedIn" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
-        <Login @userLoggedIn="LoginDialog = false" />
+        <Login @user-logged-in="LoginDialog = false" />
       </v-dialog>
       <v-btn v-if="user.loggedIn" text @click="$router.push('/create-recipe')">
         יצירת מתכון
@@ -111,13 +111,13 @@
           </v-list-item>
         </template>
       </v-list>
-      <template v-slot:append>
+      <template #append>
         <v-dialog
           v-if="$vuetify.breakpoint.mdAndDown"
           v-model="joinNewLetterDialog"
           max-width="600px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template #activator="{ on, attrs }">
             <v-btn
               class="mb-5 text-center"
               text

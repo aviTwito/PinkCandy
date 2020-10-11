@@ -1,5 +1,5 @@
 <template>
-  <v-hover v-slot:default="{ hover }">
+  <v-hover v-slot="{ hover }">
     <v-card
     v-if="$vuetify.breakpoint.lgAndUp"
       :elevation="hover ? 12 : 2"
