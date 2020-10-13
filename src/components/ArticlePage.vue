@@ -79,7 +79,7 @@
                   v-if="subItem.img"
                   class="white--text align-end mt-2 mb-2"
                   max-height="400"
-                  :src="selectedArticle.img"
+                  :src="subItem.img"
                 />
               </li>
             </ol>
