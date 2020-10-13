@@ -1,5 +1,15 @@
 <template>
   <v-row>
+    <v-col v-if="$vuetify.breakpoint.smAndDown" cols="12">
+      <v-img
+        contain
+        height="220"
+        :src="
+          require('@/assets/AppLogo/d165615c-1851-418c-bdce-1eebea92a0a7_200x200.png')
+        "
+      >
+      </v-img>
+    </v-col>
     <v-col
       v-for="article in mockData"
       :key="article.headline"

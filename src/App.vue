@@ -6,9 +6,20 @@
       fixed
     >
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
-
+      <!--  <v-img
+        class="appBarLogo"
+        :src="require('@/assets/AppLogo/AppBarLogo.png')"
+        max-height="180"
+        contain
+      ></v-img>
+      <v-avatar height="100" width="150" :tile="true">
+        <img
+          height="100"
+          :src="require('@/assets/AppLogo/AppBarLogo.png')"
+          alt="logo"
+        />
+      </v-avatar> -->
       <v-toolbar-title v-if="$vuetify.breakpoint.lgAndUp" class="white--text">
-        כותרת
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -136,7 +147,7 @@
     <v-main
       :style="
         $vuetify.breakpoint.smAndDown
-          ? 'padding-top: 100px'
+          ? 'padding-top: 30px'
           : 'padding-top: 128px'
       "
     >
@@ -221,4 +232,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.appBarLogo {
+  display: block;
+  margin: 0 auto;
+}
+</style>
