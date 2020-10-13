@@ -67,18 +67,19 @@
           <v-card-text class="text-right mb-1 pb-0 mt-0 pt-0">
             {{ item.title }}
           </v-card-text>
-          <v-card-text class="mr-8 pa-0 ">
+          <v-card-text class="pa-0 ">
             <ol>
               <li
                 v-for="(subItem, j) in item.steps"
                 :key="j"
-                class="text-right"
+                class="text-right mr-8 "
               >
                 {{ subItem.text }}
                 <v-img
                   v-if="subItem.img"
                   class="white--text align-end mt-2 mb-2"
-                  max-height="400"
+                  :max-height="$vuetify.breakpoint.smAndDown ? '400' : '400'"
+                  :width="$vuetify.breakpoint.smAndDown ? '' : '500'"
                   :src="subItem.img"
                 />
               </li>
