@@ -60,9 +60,17 @@
                           ></v-text-field>
                         </v-edit-dialog>
                       </v-list-item-title>
-                      <v-list-item-subtitle v-if="item.img">{{
-                        item.imageName
-                      }}</v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="item.img"
+                        >{{ item.imageName }}
+                        <v-btn small icon @click="item.img = null">
+                          <v-icon small>
+                            mdi-camera-off
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-subtitle>
+                      <!-- <v-dialog v-model="showStepDialog" max-width="300">
+                        <v-img :src="item.img"> </v-img>
+                      </v-dialog> -->
                     </v-list-item-content>
                     <v-list-item-action>
                       <v-btn icon @click="removePreperationStep(index)">
@@ -70,6 +78,15 @@
                           mdi-delete
                         </v-icon>
                       </v-btn>
+                      <!-- <v-btn
+                          v-if="item.img"
+                          icon
+                          @click="showStepDialog = true"
+                        >
+                          <v-icon small>
+                            mdi-camera-image
+                          </v-icon>
+                        </v-btn> -->
                     </v-list-item-action>
                   </v-list-item>
                   <v-divider
