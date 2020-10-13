@@ -6,27 +6,44 @@
     <v-card-text>
       <v-text-field v-model="preperationItem.title" placeholder="כותרת">
       </v-text-field>
-      <v-row align="center" no-gutters>
-        <v-col cols="11">
-          <v-text-field
-            v-model="newStep"
-            placeholder="צעד"
-            @keyup.enter="addNewStep"
-          >
-          </v-text-field>
-        </v-col>
-        <v-col cols="1">
-          <v-btn icon @click="addNewStep">
-            <v-icon>
-              mdi-plus
-            </v-icon>
-          </v-btn>
-        </v-col>
-        <!-- <v-col cols="12">
-          <v-btn small primary>
-            תמונה
-          </v-btn>
-        </v-col> -->
+
+      <v-row justify="center" align="center" no-gutters>
+        <div class="test">
+          <v-row>
+            <v-col cols="10">
+              <v-text-field
+                v-model="newStep"
+                placeholder="צעד"
+                @keyup.enter="addNewStep"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="2">
+              <v-btn class="vertical-center" icon @click="addNewStep">
+                <v-icon>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+
+          <v-col cols="12">
+            <v-btn class="test mb-2" small primary @click="addImage">
+              תמונה
+            </v-btn>
+            <span v-if="imageData" class="test text-center">{{
+              imageData.name
+            }}</span>
+            <input
+              ref="input1"
+              type="file"
+              style="display: none"
+              accept="image/*"
+              @change="previewImage"
+            />
+          </v-col>
+        </div>
+
         <v-col class="mt-0 pt-0" cols="12">
           <v-row no-gutters>
             <v-col cols="12">
@@ -43,6 +60,9 @@
                           ></v-text-field>
                         </v-edit-dialog>
                       </v-list-item-title>
+                      <v-list-item-subtitle v-if="item.img">{{
+                        item.imageName
+                      }}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-action>
                       <v-btn icon @click="removePreperationStep(index)">
@@ -82,6 +102,7 @@
 </template>
 
 <script>
+import { firestorage } from "@/firebase/firebaseAPI";
 export default {
   name: "AddPreperationForm",
   props: {
@@ -105,7 +126,10 @@ export default {
       newPreperationStep: {
         text: "",
         img: ""
-      }
+      },
+      caption: "",
+      img1: "",
+      imageData: null
     };
   },
   computed: {
@@ -120,16 +144,84 @@ export default {
     }
   },
   methods: {
-    addNewStep() {
-      this.preperationItem.steps.push({ text: this.newStep, img: "" });
-      this.newStep = "";
+    addImage() {
+      this.$refs.input1.click();
+    },
+    async addNewStep() {
+      if (this.imageData) {
+        await this.onUpload();
+        // this.preperationItem.steps.push({
+        //   text: this.newStep,
+        //   img: this.img1,
+        //   imageName: this.imageData.name
+        // });
+      } else {
+        this.preperationItem.steps.push({ text: this.newStep, img: "" });
+        this.imageData = null;
+        this.newStep = "";
+      }
+      // this.imageData = null;
+      // this.newStep = "";
     },
     AddPreperations() {
       this.$emit("new-preperation-added", this.newPreperationItem);
     },
     removePreperationStep(index) {
       this.preperationItem.steps.splice(index, 1);
+    },
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.img1 = null;
+      this.imageData = event.target.files[0];
+    },
+    async onUpload() {
+      this.img1 = null;
+      const storageRef = firestorage
+        .child(`${this.imageData.name}`)
+        .put(this.imageData);
+      await storageRef.on(
+        `state_changed`,
+        snapshot => {
+          this.uploadValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        () => {},
+        () => {
+          this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then(url => {
+            this.img1 = url;
+            this.preperationItem.steps.push({
+              text: this.newStep,
+              img: this.img1,
+              imageName: this.imageData.name
+            });
+            this.imageData = null;
+            this.newStep = "";
+          });
+        }
+      );
     }
   }
 };
 </script>
+
+<style scoped>
+.test {
+  width: 100%;
+}
+.vertical-center {
+  text-align: center;
+  margin: 0;
+  top: 40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.center {
+  text-align: center;
+}
+
+.action-container {
+  display: flex;
+  align-items: center;
+}
+</style>
