@@ -34,7 +34,7 @@
       </v-card-text>
      
     </v-card>
-    <v-card v-else>
+    <v-card v-else elevation="1" height="220" max-height="226">
       <v-img
       
         height="150"
@@ -50,6 +50,9 @@
         
       </v-card-title>
       </v-img>
+      <v-card-subtitle v-if="article.subHeader" class="caption">{{
+        article.subHeader
+      }}</v-card-subtitle>
     </v-card>
   </v-hover>
 </template>
