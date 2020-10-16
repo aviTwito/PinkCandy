@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters>
+  <v-row :class="{ 'mt-10': $vuetify.breakpoint.smAndDown }" no-gutters>
     <v-col>
       <v-img
         contain

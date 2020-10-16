@@ -12,7 +12,10 @@
         height="250"
         :src="article.img"
         :gradient="hover ? 'to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)' : ''"
-      />
+      >
+        <div v-if="article.favorite" class="ribbon ribbon-top-left"></div>
+      </v-img>
+
       <v-card-title class="headline">
         {{ article.headline }}
       </v-card-title>
@@ -112,10 +115,9 @@ export default {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* common */
 .ribbon {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   overflow: hidden;
   position: absolute;
 }
@@ -130,12 +132,12 @@ export default {
 .ribbon span {
   position: absolute;
   display: block;
-  width: 225px;
+  width: 230px;
   padding: 15px 0;
-  background-color: #f000bc;
+  background-color: #ad075a;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #fff;
-  font: 200 14px/1 "Lato", sans-serif;
+  font: 350 18px/1 "Lato", sans-serif;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   text-align: center;
@@ -143,8 +145,8 @@ export default {
 
 /* top left*/
 .ribbon-top-left {
-  top: -25px;
-  left: -15px;
+  top: -23px;
+  left: -23px;
 }
 .ribbon-top-left::before,
 .ribbon-top-left::after {
@@ -160,11 +162,10 @@ export default {
   left: 0;
 }
 .ribbon-top-left span {
-  right: -10px;
+  right: -25px;
   top: 25px;
   transform: rotate(-45deg);
 }
-
 .wrap-text {
   -webkit-line-clamp: unset !important;
 }
