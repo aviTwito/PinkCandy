@@ -44,7 +44,9 @@
         gradient="to top right, rgba(100,115,201,.20), rgba(25,32,72,.4)"
         @click="NavigateToArticle(article.id)"
       >
-        <div class="ribbon ribbon-top-left"><span>שווה</span></div>
+        <div v-if="article.favorite" class="ribbon ribbon-top-left">
+          <span>מומלץ</span>
+        </div>
         <v-card-title class="subtitle-1">
           {{ article.headline }}
         </v-card-title>
@@ -133,7 +135,7 @@ export default {
   background-color: #f000bc;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #fff;
-  font: 700 12px/1 "Lato", sans-serif;
+  font: 200 14px/1 "Lato", sans-serif;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   text-align: center;
@@ -141,8 +143,8 @@ export default {
 
 /* top left*/
 .ribbon-top-left {
-  top: -10px;
-  left: -10px;
+  top: -25px;
+  left: -15px;
 }
 .ribbon-top-left::before,
 .ribbon-top-left::after {
@@ -158,82 +160,11 @@ export default {
   left: 0;
 }
 .ribbon-top-left span {
-  right: -25px;
-  top: 30px;
+  right: -10px;
+  top: 25px;
   transform: rotate(-45deg);
 }
 
-/* top right*/
-.ribbon-top-right {
-  top: -10px;
-  right: -10px;
-}
-.ribbon-top-right::before,
-.ribbon-top-right::after {
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-.ribbon-top-right::before {
-  top: 0;
-  left: 0;
-}
-.ribbon-top-right::after {
-  bottom: 0;
-  right: 0;
-}
-.ribbon-top-right span {
-  left: -25px;
-  top: 30px;
-  transform: rotate(45deg);
-}
-
-/* bottom left*/
-.ribbon-bottom-left {
-  bottom: -10px;
-  left: -10px;
-}
-.ribbon-bottom-left::before,
-.ribbon-bottom-left::after {
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.ribbon-bottom-left::before {
-  bottom: 0;
-  right: 0;
-}
-.ribbon-bottom-left::after {
-  top: 0;
-  left: 0;
-}
-.ribbon-bottom-left span {
-  right: -25px;
-  bottom: 30px;
-  transform: rotate(225deg);
-}
-
-/* bottom right*/
-.ribbon-bottom-right {
-  bottom: -10px;
-  right: -10px;
-}
-.ribbon-bottom-right::before,
-.ribbon-bottom-right::after {
-  border-bottom-color: transparent;
-  border-right-color: transparent;
-}
-.ribbon-bottom-right::before {
-  bottom: 0;
-  left: 0;
-}
-.ribbon-bottom-right::after {
-  top: 0;
-  right: 0;
-}
-.ribbon-bottom-right span {
-  left: -25px;
-  bottom: 30px;
-  transform: rotate(-225deg);
-}
 .wrap-text {
   -webkit-line-clamp: unset !important;
 }
