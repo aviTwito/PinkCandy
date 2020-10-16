@@ -13,7 +13,7 @@
     <v-col
       v-for="article in mockData"
       :key="article.headline"
-      :cols="$vuetify.breakpoint.lgAndUp ? '12' : '6'"
+      :cols="getCols(article)"
       sm="3"
       lg="4"
     >
@@ -33,7 +33,15 @@ export default {
   data: () => ({
     mockData: []
   }),
-  computed: {},
+  methods: {
+    getCols(article) {
+      if (this.$vuetify.breakpoint.lgAndUp || article.favorite) {
+        return "12";
+      }
+      return "6";
+    }
+  },
+
   firestore: {
     mockData: db.collection("recipes")
   }
