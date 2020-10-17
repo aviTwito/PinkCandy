@@ -11,6 +11,15 @@
       </v-img>
     </v-col>
     <v-col
+      v-for="i in 13"
+      :key="i"
+      :cols="getCols(i % 4 == 0 ? mockData[0] : mockData[1])"
+      sm="3"
+      lg="4"
+    >
+      <Article :article="getArticle(i)" />
+    </v-col>
+    <!-- <v-col
       v-for="article in mockData"
       :key="article.headline"
       :cols="getCols(article)"
@@ -18,7 +27,7 @@
       lg="4"
     >
       <Article :article="article" />
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 
@@ -39,6 +48,9 @@ export default {
         return "12";
       }
       return "6";
+    },
+    getArticle(index) {
+      return index % 4 == 0 ? this.mockData[0] : this.mockData[1];
     }
   },
 
