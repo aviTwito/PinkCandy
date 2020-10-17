@@ -11,13 +11,13 @@
       </v-img>
     </v-col>
     <v-col
-      v-for="i in 13"
-      :key="i"
-      :cols="getCols(i % 4 == 0 ? mockData[0] : mockData[1])"
+      v-for="article in mockData"
+      :key="article.headline"
+      :cols="getCols(article)"
       sm="3"
       lg="4"
     >
-      <Article :article="getArticle(i)" />
+      <Article :article="article" />
     </v-col>
     <!-- <v-col
       v-for="article in mockData"
