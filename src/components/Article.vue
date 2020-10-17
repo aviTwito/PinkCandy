@@ -8,6 +8,7 @@
       class="mx-auto"
       @click="NavigateToArticle(article.id)"
     >
+      <div v-if="article.favorite" class="ribbon"><span>מומלץ</span></div>
       <v-img
         height="250"
         :src="article.img"
@@ -40,6 +41,8 @@
       :height="article.favorite ? '280' : '220'"
       :max-height="article.favorite ? '300' : '226'"
     >
+      <div v-if="article.favorite" class="ribbon"><span>מומלץ</span></div>
+
       <v-img
         :height="article.favorite ? '220' : '150'"
         class="white--text align-end"
@@ -47,16 +50,14 @@
         gradient="to top right, rgba(100,115,201,.20), rgba(25,32,72,.4)"
         @click="NavigateToArticle(article.id)"
       >
-        <div v-if="article.favorite" class="ribbon ribbon-top-left">
-          <span>מומלץ</span>
-        </div>
         <v-card-title class="subtitle-1">
           {{ article.headline }}
         </v-card-title>
       </v-img>
       <v-card-subtitle
         v-if="article.subHeader"
-        :class="article.favorite ? 'subtitle-1' : 'caption'"
+        class="text-bold"
+        :class="article.favorite ? 'subtitle-2' : 'caption'"
         >{{ article.subHeader }}</v-card-subtitle
       >
     </v-card>
@@ -107,64 +108,61 @@ export default {
 
 <style scoped>
 .box {
+  width: 200px;
+  height: 300px;
   position: relative;
-  max-width: 600px;
-  width: 90%;
-  height: 400px;
-  background: #fff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #bbb;
+  background: #eee;
 }
-
 .ribbon {
-  width: 140px;
-  height: 140px;
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  z-index: 1;
   overflow: hidden;
-  position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  border: 5px solid #2980b9;
+  width: 75px;
+  height: 75px;
+  text-align: right;
 }
 .ribbon span {
-  position: absolute;
-  display: block;
-  width: 230px;
-  padding: 15px 0;
-  background-color: #ad075a;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  font-size: 10px;
+  font-weight: bold;
   color: #fff;
-  font: 350 18px/1 "Lato", sans-serif;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   text-align: center;
-}
-
-/* top left*/
-.ribbon-top-left {
-  top: -23px;
-  left: -23px;
-}
-.ribbon-top-left::before,
-.ribbon-top-left::after {
-  border-top-color: transparent;
-  border-left-color: transparent;
-}
-.ribbon-top-left::before {
-  top: 0;
-  right: 0;
-}
-.ribbon-top-left::after {
-  bottom: 0;
-  left: 0;
-}
-.ribbon-top-left span {
-  right: -25px;
-  top: 25px;
+  line-height: 20px;
   transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #79a70a;
+  background: linear-gradient(#f70505 0%, #8f0808 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px;
+  left: -21px;
+}
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #8f0808;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #8f0808;
+}
+.ribbon span::after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #8f0808;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #8f0808;
 }
 .wrap-text {
   -webkit-line-clamp: unset !important;
