@@ -37,7 +37,8 @@
     </v-card>
     <v-card
       v-else
-      elevation="1"
+      rounded
+      class="box"
       :height="article.favorite ? '280' : '220'"
       :max-height="article.favorite ? '300' : '226'"
     >
@@ -108,8 +109,6 @@ export default {
 
 <style scoped>
 .box {
-  width: 200px;
-  height: 300px;
   position: relative;
   border: 1px solid #bbb;
   background: #eee;
