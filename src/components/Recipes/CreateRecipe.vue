@@ -175,7 +175,7 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-        <v-col sm="12">
+        <v-col cols="12" sm="12">
           <v-checkbox v-model="pageArticle.favorite" label="מומלץ">
           </v-checkbox>
         </v-col>

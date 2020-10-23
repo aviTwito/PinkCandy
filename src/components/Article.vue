@@ -35,7 +35,7 @@
         </div>
       </v-card-text>
       <v-card-actions v-if="user.loggedIn">
-        <v-btn icon @click="testMethod">
+        <v-btn icon @click.stop="testMethod(article)">
           <v-icon>
             mdi-pencil
           </v-icon>
