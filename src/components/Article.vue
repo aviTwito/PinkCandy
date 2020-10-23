@@ -35,7 +35,7 @@
         </div>
       </v-card-text>
       <v-card-actions v-if="user.loggedIn">
-        <v-btn icon>
+        <v-btn icon @click="testMethod">
           <v-icon>
             mdi-pencil
           </v-icon>
@@ -47,6 +47,7 @@
       rounded
       class="box"
       :height="GetSmallDeviceCardHeight(article)"
+      @click="NavigateToArticle(article.id)"
     >
       <div v-if="article.favorite" class="ribbon"><span>מומלץ</span></div>
 
@@ -55,7 +56,6 @@
         class="white--text align-end"
         :src="article.img"
         gradient="to top right, rgba(100,115,201,.20), rgba(25,32,72,.4)"
-        @click="NavigateToArticle(article.id)"
       >
         <v-card-title class="subtitle-1">
           {{ article.headline }}
@@ -68,7 +68,7 @@
         >{{ article.subHeader }}
       </v-card-subtitle>
       <v-card-actions v-if="user.loggedIn">
-        <v-btn icon>
+        <v-btn icon @click.stop="testMethod(article)">
           <v-icon>
             mdi-pencil
           </v-icon>
@@ -126,6 +126,9 @@ export default {
       } else {
         return this.user.loggedIn ? "" : "";
       }
+    },
+    testMethod(item) {
+      this.$router.push({ name: "CreateRecipe", params: { article: item } });
     }
   }
 };

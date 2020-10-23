@@ -14,7 +14,8 @@ const routes = [
   {
     path: "/create-recipe",
     name: "CreateRecipe",
-    component: CreateRecipe
+    component: CreateRecipe,
+    props: true
   },
   {
     path: "/article/:id",

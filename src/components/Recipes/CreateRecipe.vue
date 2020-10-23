@@ -197,17 +197,24 @@ export default {
     AddItemsForm,
     AddPreperationForm
   },
-  data: () => ({
+  props: {
     article: {
-      headline: "",
-      img: "",
-      content: "",
-      subHeader: "",
-      description: "",
-      favorite: false,
-      igredients: [],
-      preperation: []
-    },
+      type: Object,
+      default() {
+        return {
+          headline: "",
+          img: "",
+          content: "",
+          subHeader: "",
+          description: "",
+          favorite: false,
+          igredients: [],
+          preperation: []
+        };
+      }
+    }
+  },
+  data: () => ({
     editedIgredient: {
       title: "",
       subIgredients: []
@@ -290,21 +297,40 @@ export default {
       this.newPreperationItem.stpes.splice(index, 1);
     },
     AddNewRecipe() {
-      db.collection("recipes")
-        .add(this.article)
-        .then(() => {
-          this.article = {
-            headline: "",
-            img: "",
-            content: "",
-            subHeader: "",
-            description: "",
+      if (!this.article.id) {
+        db.collection("recipes")
+          .add(this.article)
+          .then(() => {
+            this.article = {
+              headline: "",
+              img: "",
+              content: "",
+              subHeader: "",
+              description: "",
 
-            igredients: [],
-            preperation: []
-          };
-          this.$router.push("/");
-        });
+              igredients: [],
+              preperation: []
+            };
+            this.$router.push("/");
+          });
+      } else {
+        db.collection("recipes")
+          .doc(this.article.id)
+          .set(this.article)
+          .then(() => {
+            this.article = {
+              headline: "",
+              img: "",
+              content: "",
+              subHeader: "",
+              description: "",
+
+              igredients: [],
+              preperation: []
+            };
+            this.$router.push("/");
+          });
+      }
     },
     addNewPreperation() {
       this.newPreperationItem.push(this.newPreperationStep);
