@@ -42,7 +42,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.showDialog = false;
-          this.$emit("userLoggedIn");
+          this.$emit("user-logged-in");
         })
         .catch(() => {
           this.email = "";

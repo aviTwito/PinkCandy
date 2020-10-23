@@ -111,7 +111,7 @@ export default {
       this.newIgredient = "";
     },
     AddIngredients() {
-      this.$emit("addIngredient", this.newIgredientItemToUse);
+      this.$emit("add-ingredient", this.newIgredientItemToUse);
     },
     removeIgredient(index) {
       this.newIgredientItemToUse.subIgredients.splice(index, 1);

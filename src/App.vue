@@ -6,9 +6,20 @@
       fixed
     >
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
-
+      <!--  <v-img
+        class="appBarLogo"
+        :src="require('@/assets/AppLogo/AppBarLogo.png')"
+        max-height="180"
+        contain
+      ></v-img>
+      <v-avatar height="100" width="150" :tile="true">
+        <img
+          height="100"
+          :src="require('@/assets/AppLogo/AppBarLogo.png')"
+          alt="logo"
+        />
+      </v-avatar> -->
       <v-toolbar-title v-if="$vuetify.breakpoint.lgAndUp" class="white--text">
-        כותרת
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -20,12 +31,12 @@
         <v-icon>mdi-instagram</v-icon>
       </v-btn>
       <v-dialog v-model="LoginDialog" max-width="600px">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn v-if="!user.loggedIn" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
-        <Login @userLoggedIn="LoginDialog = false" />
+        <Login @user-logged-in="LoginDialog = false" />
       </v-dialog>
       <v-btn v-if="user.loggedIn" text @click="$router.push('/create-recipe')">
         יצירת מתכון
@@ -111,13 +122,13 @@
           </v-list-item>
         </template>
       </v-list>
-      <template v-slot:append>
+      <template #append>
         <v-dialog
           v-if="$vuetify.breakpoint.mdAndDown"
           v-model="joinNewLetterDialog"
           max-width="600px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template #activator="{ on, attrs }">
             <v-btn
               class="mb-5 text-center"
               text
@@ -136,7 +147,7 @@
     <v-main
       :style="
         $vuetify.breakpoint.smAndDown
-          ? 'padding-top: 100px'
+          ? 'padding-top: 30px'
           : 'padding-top: 128px'
       "
     >
@@ -150,14 +161,6 @@
           `text-sm-center`
         ]"
       >
-        <!-- <v-layout column align-center>
-          <v-flex>
-            
-          </v-flex>
-          <v-flex>
-            <ArticePage />
-          </v-flex>
-        </v-layout> -->
         <v-row class="d-flex" justify-lg="space-between" no-gutters>
           <v-col v-if="$vuetify.breakpoint.lgAndUp" lg="2" class="pa-2">
             <JoinNewsLetter />
@@ -177,21 +180,20 @@
         </v-row>
       </v-container>
     </v-main>
-    <Footer />
   </v-app>
 </template>
 
 <script>
 import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
 import Login from "@/components/Login.vue";
-import Footer from "@/components/Footer.vue";
+
 import { auth } from "@/firebase/firebaseAPI";
 import { mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
     JoinNewsLetter,
-    Footer,
+
     Login
   },
   data: () => ({
@@ -229,4 +231,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.appBarLogo {
+  display: block;
+  margin: 0 auto;
+}
+</style>

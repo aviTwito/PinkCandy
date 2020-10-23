@@ -1,14 +1,33 @@
 <template>
   <v-row>
+    <v-col v-if="$vuetify.breakpoint.smAndDown" cols="12">
+      <v-img
+        contain
+        height="220"
+        :src="
+          require('@/assets/AppLogo/d165615c-1851-418c-bdce-1eebea92a0a7_200x200.png')
+        "
+      >
+      </v-img>
+    </v-col>
     <v-col
       v-for="article in mockData"
       :key="article.headline"
-      :cols="$vuetify.breakpoint.lgAndUp ? '12' : '6'"
+      :cols="getCols(article)"
       sm="3"
       lg="4"
     >
       <Article :article="article" />
     </v-col>
+    <!-- <v-col
+      v-for="article in mockData"
+      :key="article.headline"
+      :cols="getCols(article)"
+      sm="3"
+      lg="4"
+    >
+      <Article :article="article" />
+    </v-col> -->
   </v-row>
 </template>
 
@@ -23,7 +42,18 @@ export default {
   data: () => ({
     mockData: []
   }),
-  computed: {},
+  methods: {
+    getCols(article) {
+      if (this.$vuetify.breakpoint.lgAndUp || article.favorite) {
+        return "12";
+      }
+      return "6";
+    },
+    getArticle(index) {
+      return index % 4 == 0 ? this.mockData[0] : this.mockData[1];
+    }
+  },
+
   firestore: {
     mockData: db.collection("recipes")
   }
