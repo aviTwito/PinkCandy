@@ -37,7 +37,7 @@
 
         <div
           v-for="(item, i) in selectedArticle.igredients"
-          :key="i"
+          :key="i + item"
           class="mb-2"
         >
           <v-card-text class="text-right mb-1 pb-0 mt-0 pt-0">{{
