@@ -27,7 +27,7 @@
             </v-col>
           </v-row>
 
-          <v-col cols="12">
+          <!-- <v-col cols="12">
             <v-btn class="test mb-2" small primary @click="addImage">
               תמונה
             </v-btn>
@@ -41,7 +41,7 @@
               accept="image/*"
               @change="previewImage"
             />
-          </v-col>
+          </v-col> -->
         </div>
 
         <v-col class="mt-0 pt-0" cols="12">
@@ -73,20 +73,25 @@
                       </v-dialog> -->
                     </v-list-item-content>
                     <v-list-item-action>
-                      <v-btn icon @click="removePreperationStep(index)">
-                        <v-icon small>
-                          mdi-delete
-                        </v-icon>
-                      </v-btn>
-                      <!-- <v-btn
-                          v-if="item.img"
-                          icon
-                          @click="showStepDialog = true"
-                        >
+                      <v-row>
+                        <v-btn icon @click="addImage(item)">
                           <v-icon small>
-                            mdi-camera-image
+                            mdi-camera
                           </v-icon>
-                        </v-btn> -->
+                        </v-btn>
+                        <input
+                          ref="input1"
+                          type="file"
+                          style="display: none"
+                          accept="image/*"
+                          @change="previewImage"
+                        />
+                        <v-btn icon @click="removePreperationStep(index)">
+                          <v-icon small>
+                            mdi-delete
+                          </v-icon>
+                        </v-btn>
+                      </v-row>
                     </v-list-item-action>
                   </v-list-item>
                   <v-divider
@@ -161,24 +166,14 @@ export default {
     }
   },
   methods: {
-    addImage() {
+    async addImage(step) {
       this.$refs.input1.click();
+      await this.onUpload(step);
     },
     async addNewStep() {
-      if (this.imageData) {
-        await this.onUpload();
-        // this.preperationItem.steps.push({
-        //   text: this.newStep,
-        //   img: this.img1,
-        //   imageName: this.imageData.name
-        // });
-      } else {
-        this.preperationItem.steps.push({ text: this.newStep, img: "" });
-        this.imageData = null;
-        this.newStep = "";
-      }
-      // this.imageData = null;
-      // this.newStep = "";
+      this.preperationItem.steps.push({ text: this.newStep, img: "" });
+      this.imageData = null;
+      this.newStep = "";
     },
     AddPreperations() {
       this.$emit("new-preperation-added", this.newPreperationItem);
@@ -191,7 +186,7 @@ export default {
       this.img1 = null;
       this.imageData = event.target.files[0];
     },
-    async onUpload() {
+    async onUpload(step) {
       this.img1 = null;
       const storageRef = firestorage
         .child(`${this.imageData.name}`)
@@ -207,11 +202,12 @@ export default {
           this.uploadValue = 100;
           storageRef.snapshot.ref.getDownloadURL().then(url => {
             this.img1 = url;
-            this.preperationItem.steps.push({
-              text: this.newStep,
-              img: this.img1,
-              imageName: this.imageData.name
-            });
+            (step.img = this.img1), (step.imageName = this.imageData.name);
+            // this.preperationItem.steps.push({
+            //   text: this.newStep,
+            //   img:c
+            //   imageName: this.imageData.name
+            // });
             this.imageData = null;
             this.newStep = "";
           });
