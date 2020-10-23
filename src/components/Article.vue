@@ -34,13 +34,19 @@
           </p>
         </div>
       </v-card-text>
+      <v-card-actions v-if="user.loggedIn">
+        <v-btn icon>
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
     <v-card
       v-else
       rounded
       class="box"
-      :height="article.favorite ? '280' : '220'"
-      :max-height="article.favorite ? '300' : '226'"
+      :height="GetSmallDeviceCardHeight(article)"
     >
       <div v-if="article.favorite" class="ribbon"><span>מומלץ</span></div>
 
@@ -59,13 +65,21 @@
         v-if="article.subHeader"
         class="text-bold"
         :class="article.favorite ? 'subtitle-2' : 'caption'"
-        >{{ article.subHeader }}</v-card-subtitle
-      >
+        >{{ article.subHeader }}
+      </v-card-subtitle>
+      <v-card-actions v-if="user.loggedIn">
+        <v-btn icon>
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   props: {
     article: {
@@ -97,11 +111,21 @@ export default {
       return this.readMore
         ? this.article.content.slice(0, 50)
         : this.article.content;
-    }
+    },
+    ...mapGetters({
+      user: "user"
+    })
   },
   methods: {
     NavigateToArticle(id) {
       this.$router.push({ path: `/article/${id}` });
+    },
+    GetSmallDeviceCardHeight(article) {
+      if (article.favorite) {
+        return this.user.loggedIn ? "" : "";
+      } else {
+        return this.user.loggedIn ? "" : "";
+      }
     }
   }
 };
