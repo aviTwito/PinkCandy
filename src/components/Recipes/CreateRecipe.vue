@@ -4,13 +4,13 @@
       <v-row>
         <v-col cols="12" sm="12">
           <v-text-field
-            v-model="article.headline"
+            v-model="pageArticle.headline"
             placeholder="כותרת"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="12">
           <v-text-field
-            v-model="article.subHeader"
+            v-model="pageArticle.subHeader"
             placeholder="תת כותרת"
           ></v-text-field>
         </v-col>
@@ -35,7 +35,7 @@
         </v-row>
         <v-col cols="12" sm="12">
           <v-text-field
-            v-model="article.description"
+            v-model="pageArticle.description"
             placeholder="תיאור"
           ></v-text-field>
         </v-col>
@@ -63,7 +63,7 @@
               </v-col>
               <v-col cols="12" sm="12">
                 <v-card
-                  v-for="(igredient, i) in article.igredients"
+                  v-for="(igredient, i) in pageArticle.igredients"
                   :key="igredient + i"
                   flat
                   tile
@@ -137,7 +137,7 @@
 
               <v-col cols="12">
                 <v-card
-                  v-for="(item, index) in article.preperation"
+                  v-for="(item, index) in pageArticle.preperation"
                   :key="index"
                   flat
                   tile
@@ -176,7 +176,8 @@
           </v-expansion-panel>
         </v-expansion-panels>
         <v-col sm="12">
-          <v-checkbox v-model="article.favorite" label="מומלץ"> </v-checkbox>
+          <v-checkbox v-model="pageArticle.favorite" label="מומלץ">
+          </v-checkbox>
         </v-col>
         <v-col sm="12">
           <v-btn color="primary" @click="AddNewRecipe">
@@ -232,9 +233,14 @@ export default {
     img1: "",
     imageData: null
   }),
+  computed: {
+    pageArticle() {
+      return this.article;
+    }
+  },
   methods: {
     editIngredients(item) {
-      this.ingridientEditedIndex = this.article.igredients.indexOf(item);
+      this.ingridientEditedIndex = this.pageArticle.igredients.indexOf(item);
       this.editedIgredient = Object.assign({}, item);
       this.AddIgredientsDialog = true;
     },
@@ -242,11 +248,11 @@ export default {
       if (this.ingridientEditedIndex > -1) {
         this.editedIgredient = Object.assign({}, newItem);
         Object.assign(
-          this.article.igredients[this.ingridientEditedIndex],
+          this.pageArticle.igredients[this.ingridientEditedIndex],
           this.editedIgredient
         );
       } else {
-        this.article.igredients.push(this.editedIgredient);
+        this.pageArticle.igredients.push(this.editedIgredient);
       }
       this.AddIgredientsDialog = false;
       this.editedIgredient = {
@@ -264,7 +270,7 @@ export default {
       this.ingridientEditedIndex = -1;
     },
     editPreperation(item) {
-      this.preperationEditedIndex = this.article.preperation.indexOf(item);
+      this.preperationEditedIndex = this.pageArticle.preperation.indexOf(item);
       this.editedPreperationiTem = Object.assign({}, item);
       this.AddnewPreperationDialog = true;
     },
@@ -272,11 +278,11 @@ export default {
       this.editedPreperationiTem = Object.assign({}, preperationItem);
       if (this.preperationEditedIndex > -1) {
         Object.assign(
-          this.article.preperation[this.preperationEditedIndex],
+          this.pageArticle.preperation[this.preperationEditedIndex],
           this.editedPreperationiTem
         );
       } else {
-        this.article.preperation.push(this.editedPreperationiTem);
+        this.pageArticle.preperation.push(this.editedPreperationiTem);
       }
       this.AddnewPreperationDialog = false;
       this.editedPreperationiTem = {
@@ -297,11 +303,11 @@ export default {
       this.newPreperationItem.stpes.splice(index, 1);
     },
     AddNewRecipe() {
-      if (!this.article.id) {
+      if (!this.pageArticle.id) {
         db.collection("recipes")
-          .add(this.article)
+          .add(this.pageArticle)
           .then(() => {
-            this.article = {
+            this.pageArticle = {
               headline: "",
               img: "",
               content: "",
@@ -315,10 +321,10 @@ export default {
           });
       } else {
         db.collection("recipes")
-          .doc(this.article.id)
-          .set(this.article)
+          .doc(this.pageArticle.id)
+          .set(this.pageArticle)
           .then(() => {
-            this.article = {
+            this.pageArticle = {
               headline: "",
               img: "",
               content: "",
@@ -341,7 +347,7 @@ export default {
     },
     addNewPreperationStep() {
       const temp = this.newPreperationStep;
-      this.article.preperation.push(temp);
+      this.pageArticle.preperation.push(temp);
       this.newPreperationStep = { text: "", img: "" };
     },
     click1() {
@@ -372,7 +378,7 @@ export default {
           this.uploadValue = 100;
           storageRef.snapshot.ref.getDownloadURL().then(url => {
             this.img1 = url;
-            this.article.img = url;
+            this.pageArticle.img = url;
             // console.log(this.img1);
           });
         }
