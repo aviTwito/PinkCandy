@@ -74,7 +74,7 @@
                     </v-list-item-content>
                     <v-list-item-action>
                       <v-row>
-                        <v-btn icon @click="addImage(item)">
+                        <v-btn icon @click="addImage(index)">
                           <v-icon small>
                             mdi-camera
                           </v-icon>
@@ -84,7 +84,7 @@
                           type="file"
                           style="display: none"
                           accept="image/*"
-                          @change="previewImage"
+                          @change="previewImage($event, item)"
                         />
                         <v-btn icon @click="removePreperationStep(index)">
                           <v-icon small>
@@ -166,9 +166,8 @@ export default {
     }
   },
   methods: {
-    async addImage(step) {
-      this.$refs.input1.click();
-      await this.onUpload(step);
+    async addImage(index) {
+      await this.$refs.input1[index].click();
     },
     async addNewStep() {
       this.preperationItem.steps.push({ text: this.newStep, img: "" });
@@ -181,10 +180,12 @@ export default {
     removePreperationStep(index) {
       this.preperationItem.steps.splice(index, 1);
     },
-    previewImage(event) {
+    async previewImage(event, item) {
+      console.log(item);
       this.uploadValue = 0;
       this.img1 = null;
       this.imageData = event.target.files[0];
+      await this.onUpload(item);
     },
     async onUpload(step) {
       this.img1 = null;
