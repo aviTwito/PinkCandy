@@ -180,21 +180,20 @@
         </v-row>
       </v-container>
     </v-main>
-    <Footer />
   </v-app>
 </template>
 
 <script>
 import JoinNewsLetter from "@/components/JoinNewsLetter.vue";
 import Login from "@/components/Login.vue";
-import Footer from "@/components/Footer.vue";
+
 import { auth } from "@/firebase/firebaseAPI";
 import { mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
     JoinNewsLetter,
-    Footer,
+
     Login
   },
   data: () => ({
