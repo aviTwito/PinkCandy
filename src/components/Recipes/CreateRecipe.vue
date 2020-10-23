@@ -234,8 +234,13 @@ export default {
     imageData: null
   }),
   computed: {
-    pageArticle() {
-      return this.article;
+    pageArticle: {
+      get() {
+        return this.article;
+      },
+      set(value) {
+        this.value = value;
+      }
     }
   },
   methods: {

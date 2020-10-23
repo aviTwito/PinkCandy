@@ -181,7 +181,6 @@ export default {
       this.preperationItem.steps.splice(index, 1);
     },
     async previewImage(event, item) {
-      console.log(item);
       this.uploadValue = 0;
       this.img1 = null;
       this.imageData = event.target.files[0];
