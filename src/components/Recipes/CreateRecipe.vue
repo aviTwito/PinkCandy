@@ -175,7 +175,9 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-
+        <v-col sm="12">
+          <v-checkbox v-model="article.favorite" label="מומלץ"> </v-checkbox>
+        </v-col>
         <v-col sm="12">
           <v-btn color="primary" @click="AddNewRecipe">
             שלח
@@ -202,7 +204,7 @@ export default {
       content: "",
       subHeader: "",
       description: "",
-
+      favorite: false,
       igredients: [],
       preperation: []
     },
